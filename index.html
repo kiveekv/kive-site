@@ -2028,7 +2028,8 @@ if(/[?&]h(=|&|$)/.test(location.search)){
 (function(){
   var root=document.getElementById('stage');
   if(!root)return;
-  var categoryMap={poster:'kive-poster',schedule:'kive-schedule',ppt:'kive-ppt',replay:'kive-replay',banner:'kive-banner'};
+  var defaultCategories=[{id:'poster',label:'포스터',panel:'kive-poster'},{id:'schedule',label:'스케줄표',panel:'kive-schedule'},{id:'ppt',label:'PPT',panel:'kive-ppt'},{id:'replay',label:'다시보기 썸네일',panel:'kive-replay'},{id:'banner',label:'치지직 배너',panel:'kive-banner'}];
+  var categoryMap={};
   var imageStyle='display:block;width:100%;max-width:100%;margin:0;padding:0;border-radius:15px;background:#F1EAED;height:auto;object-fit:contain;';
   function sizeLogo(){
     var match=root.querySelector('.kive-logo-match'), title=root.querySelector('.kive-logo-title');
@@ -2038,7 +2039,26 @@ if(/[?&]h(=|&|$)/.test(location.search)){
     if(width>0){match.style.width=width+'px';match.style.maxWidth='90%';}
   }
   function render(data){
-    var panels={};Object.keys(categoryMap).forEach(function(k){var el=root.querySelector('#'+categoryMap[k]);if(el){panels[k]=el;el.innerHTML='';}});
+    var categories=(data.portfolioCategories&&data.portfolioCategories.length?data.portfolioCategories:defaultCategories);
+    var tabs=root.querySelector('.kive-portfolio-tabs');
+    var existingPanels={};root.querySelectorAll('.kive-portfolio-panel').forEach(function(el){existingPanels[el.id]=el;});
+    var panelHost=root.querySelector('.kive-portfolio-panel');panelHost=panelHost?panelHost.parentNode:root;
+    var panels={};categoryMap={};
+    categories.forEach(function(c,index){
+      var id=String(c.id||'');if(!id)return;
+      var panelId=c.panel||('kive-cat-'+id);categoryMap[id]=panelId;
+      var panel=existingPanels[panelId];
+      if(!panel){panel=document.createElement('div');panel.className='kive-portfolio-panel kive-wide';panel.id=panelId;panel.style.cssText='display:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;width:100%;box-sizing:border-box;align-items:start;';panelHost.appendChild(panel);}
+      panel.innerHTML='';panel.style.display='none';panels[id]=panel;
+      if(tabs){var tab=Array.from(tabs.querySelectorAll('.kive-portfolio-tab')).find(function(t){return t.getAttribute('data-category-id')===id||String(t.getAttribute('onclick')||'').indexOf("'"+panelId+"'")!==-1;});
+        if(!tab){tab=document.createElement('button');tab.type='button';tab.className='kive-portfolio-tab';tab.style.cssText='padding:9px 16px;border:1px solid #E8DDE1;border-radius:999px;background:#fff;color:#685A60;font-family:inherit;font-size:12px;font-weight:800;cursor:pointer;';tab.setAttribute('data-category-id',id);tab.onclick=function(){tabs.querySelectorAll('.kive-portfolio-tab').forEach(function(t){t.style.borderColor='#E8DDE1';t.style.background='#fff';t.style.color='#685A60';});root.querySelectorAll('.kive-portfolio-panel').forEach(function(p){p.style.display='none';});tab.style.borderColor='#81354B';tab.style.background='#81354B';tab.style.color='#fff';panel.style.display='grid';};}
+        tab.textContent=c.label||id;tab.setAttribute('data-category-id',id);tabs.appendChild(tab);
+      }
+    });
+    // Remove category tabs/panels no longer configured, while preserving unrelated site content.
+    if(tabs)Array.from(tabs.querySelectorAll('.kive-portfolio-tab')).forEach(function(t){if(!categories.some(function(c){return c.id===t.getAttribute('data-category-id');})&&t.hasAttribute('data-category-id'))t.remove();});
+    var active=categories[0];if(active&&panels[active.id]){panels[active.id].style.display='grid';if(tabs){tabs.querySelectorAll('.kive-portfolio-tab').forEach(function(t){var on=t.getAttribute('data-category-id')===active.id;t.style.background=on?'#81354B':'#fff';t.style.color=on?'#fff':'#685A60';t.style.borderColor=on?'#81354B':'#E8DDE1';});}}
+
     var portfolioItems=(data.portfolio||[]).map(function(item,index){return {item:item,index:index};});
     if((data.portfolioSortMode||'latest')==='latest'){
       portfolioItems.sort(function(a,b){
