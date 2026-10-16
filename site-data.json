@@ -181,5 +181,11 @@
       "panel": "kive-banner"
     }
   ],
-  "portfolio": []
+  "portfolio": [
+    {
+      "category": "poster",
+      "title": "포스터",
+      "path": "./portfolio/1792117544408-0-.png"
+    }
+  ]
 }
