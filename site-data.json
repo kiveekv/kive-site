@@ -183,6 +183,12 @@
   ],
   "portfolio": [
     {
+      "category": "banner",
+      "title": "치지직 배너 샘플1",
+      "path": "./portfolio/1792123577520-0-1.png",
+      "createdAt": "2026-10-16T04:06:21.364Z"
+    },
+    {
       "category": "replay",
       "title": "다시보기 썸네일",
       "path": "./portfolio/1792123530991-0-.png",
