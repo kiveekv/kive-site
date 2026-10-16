@@ -2039,7 +2039,18 @@ if(/[?&]h(=|&|$)/.test(location.search)){
   }
   function render(data){
     var panels={};Object.keys(categoryMap).forEach(function(k){var el=root.querySelector('#'+categoryMap[k]);if(el){panels[k]=el;el.innerHTML='';}});
-    (data.portfolio||[]).forEach(function(item){
+    var portfolioItems=(data.portfolio||[]).map(function(item,index){return {item:item,index:index};});
+    if((data.portfolioSortMode||'latest')==='latest'){
+      portfolioItems.sort(function(a,b){
+        var ad=a.item.createdAt||a.item.uploadedAt||a.item.date||'';
+        var bd=b.item.createdAt||b.item.uploadedAt||b.item.date||'';
+        if(ad&&bd&&ad!==bd)return String(bd).localeCompare(String(ad));
+        if(ad&&!bd)return -1;
+        if(bd&&!ad)return 1;
+        return b.index-a.index;
+      });
+    }
+    portfolioItems.forEach(function(entry){var item=entry.item;
       var panel=panels[item.category]; if(!panel||!item.path)return;
       var img=document.createElement('img');img.className='kive-portfolio-img';img.alt=item.title||'';img.loading='lazy';img.decoding='async';img.src=item.path;img.style.cssText=imageStyle;
       img.addEventListener('error',function(){img.remove();});
