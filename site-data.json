@@ -183,6 +183,12 @@
   ],
   "portfolio": [
     {
+      "category": "schedule",
+      "title": "스케줄표",
+      "path": "./portfolio/1792118432616-0-.png",
+      "createdAt": "2026-10-16T02:40:36.636Z"
+    },
+    {
       "category": "poster",
       "title": "[방찌님] 포스터",
       "path": "./portfolio/1792117678831-0-.png"
