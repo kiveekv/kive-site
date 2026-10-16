@@ -2040,23 +2040,28 @@ if(/[?&]h(=|&|$)/.test(location.search)){
   }
   function render(data){
     var categories=(data.portfolioCategories&&data.portfolioCategories.length?data.portfolioCategories:defaultCategories);
+    // Rebuild category tabs from saved data instead of reusing static tabs; this prevents duplicates.
     var tabs=root.querySelector('.kive-portfolio-tabs');
     var existingPanels={};root.querySelectorAll('.kive-portfolio-panel').forEach(function(el){existingPanels[el.id]=el;});
     var panelHost=root.querySelector('.kive-portfolio-panel');panelHost=panelHost?panelHost.parentNode:root;
+    if(tabs)tabs.innerHTML='';
     var panels={};categoryMap={};
-    categories.forEach(function(c,index){
+    categories.forEach(function(c){
       var id=String(c.id||'');if(!id)return;
       var panelId=c.panel||('kive-cat-'+id);categoryMap[id]=panelId;
       var panel=existingPanels[panelId];
       if(!panel){panel=document.createElement('div');panel.className='kive-portfolio-panel kive-wide';panel.id=panelId;panel.style.cssText='display:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;width:100%;box-sizing:border-box;align-items:start;';panelHost.appendChild(panel);}
       panel.innerHTML='';panel.style.display='none';panels[id]=panel;
-      if(tabs){var tab=Array.from(tabs.querySelectorAll('.kive-portfolio-tab')).find(function(t){return t.getAttribute('data-category-id')===id||String(t.getAttribute('onclick')||'').indexOf("'"+panelId+"'")!==-1;});
-        if(!tab){tab=document.createElement('button');tab.type='button';tab.className='kive-portfolio-tab';tab.style.cssText='padding:9px 16px;border:1px solid #E8DDE1;border-radius:999px;background:#fff;color:#685A60;font-family:inherit;font-size:12px;font-weight:800;cursor:pointer;';tab.setAttribute('data-category-id',id);tab.onclick=function(){tabs.querySelectorAll('.kive-portfolio-tab').forEach(function(t){t.style.borderColor='#E8DDE1';t.style.background='#fff';t.style.color='#685A60';});root.querySelectorAll('.kive-portfolio-panel').forEach(function(p){p.style.display='none';});tab.style.borderColor='#81354B';tab.style.background='#81354B';tab.style.color='#fff';panel.style.display='grid';};}
-        tab.textContent=c.label||id;tab.setAttribute('data-category-id',id);tabs.appendChild(tab);
+      if(tabs){
+        var tab=document.createElement('button');tab.type='button';tab.className='kive-portfolio-tab';
+        tab.style.cssText='padding:9px 16px;border:1px solid #E8DDE1;border-radius:999px;background:#fff;color:#685A60;font-family:inherit;font-size:12px;font-weight:800;cursor:pointer;';
+        tab.textContent=c.label||id;tab.setAttribute('data-category-id',id);
+        tab.onclick=function(){tabs.querySelectorAll('.kive-portfolio-tab').forEach(function(t){t.style.borderColor='#E8DDE1';t.style.background='#fff';t.style.color='#685A60';});root.querySelectorAll('.kive-portfolio-panel').forEach(function(p){p.style.display='none';});tab.style.borderColor='#81354B';tab.style.background='#81354B';tab.style.color='#fff';panel.style.display='grid';};
+        tabs.appendChild(tab);
       }
     });
-    // Remove category tabs/panels no longer configured, while preserving unrelated site content.
-    if(tabs)Array.from(tabs.querySelectorAll('.kive-portfolio-tab')).forEach(function(t){if(!categories.some(function(c){return c.id===t.getAttribute('data-category-id');})&&t.hasAttribute('data-category-id'))t.remove();});
+    // Hide unused legacy panels so only configured categories are displayed.
+    Object.keys(existingPanels).forEach(function(id){if(!Object.keys(panels).some(function(catId){return panels[catId]===existingPanels[id];})){existingPanels[id].style.display='none';existingPanels[id].innerHTML='';}});
     var active=categories[0];if(active&&panels[active.id]){panels[active.id].style.display='grid';if(tabs){tabs.querySelectorAll('.kive-portfolio-tab').forEach(function(t){var on=t.getAttribute('data-category-id')===active.id;t.style.background=on?'#81354B':'#fff';t.style.color=on?'#fff':'#685A60';t.style.borderColor=on?'#81354B':'#E8DDE1';});}}
 
     var portfolioItems=(data.portfolio||[]).map(function(item,index){return {item:item,index:index};});
