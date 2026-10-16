@@ -198,6 +198,12 @@
   "portfolio": [
     {
       "category": "ppt",
+      "title": "01 표지",
+      "path": "./portfolio/1792134477286-0-01-.png",
+      "createdAt": "2026-10-16T07:08:01.737Z"
+    },
+    {
+      "category": "ppt",
       "title": "04 취미 및 특기",
       "path": "./portfolio/1792134466803-0-04-.png",
       "createdAt": "2026-10-16T07:07:52.156Z"
