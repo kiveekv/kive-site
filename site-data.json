@@ -189,6 +189,12 @@
   "portfolio": [
     {
       "category": "schedule",
+      "title": "스케줄표 샘플1",
+      "path": "./portfolio/1792124297020-0-1.png",
+      "createdAt": "2026-10-16T04:18:20.324Z"
+    },
+    {
+      "category": "schedule",
       "title": "스케줄표 샘플3",
       "path": "./portfolio/1792124282944-0-3.png",
       "createdAt": "2026-10-16T04:18:06.642Z"
