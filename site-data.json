@@ -184,6 +184,12 @@
   "portfolio": [
     {
       "category": "poster",
+      "title": "02 프로필",
+      "path": "./portfolio/1792123416400-0-02-.png",
+      "createdAt": "2026-10-16T04:03:40.888Z"
+    },
+    {
+      "category": "poster",
       "title": "01 표지",
       "path": "./portfolio/1792123402544-0-01-.png",
       "createdAt": "2026-10-16T04:03:26.283Z"
