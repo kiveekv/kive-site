@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KIVE ADMIN</title>
+<style>
+:root{--wine:#81354B;--pale:#FAF7F8;--line:#E8DDE1;--text:#292326;--muted:#82747A}*{box-sizing:border-box}body{margin:0;background:#f7f4f5;color:var(--text);font:14px/1.55 "SUIT","Pretendard",system-ui,sans-serif}.shell{max-width:1100px;margin:auto;padding:24px 16px 70px}.top{display:flex;align-items:center;gap:14px;justify-content:space-between;margin-bottom:22px}.brand{font-size:22px;font-weight:900;letter-spacing:-.05em;color:var(--wine)}.brand small{display:block;font-size:10px;letter-spacing:.16em;color:var(--muted)}.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:16px;box-shadow:0 3px 14px #81354b08}.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:180px}h2{font-size:17px;margin:0 0 14px;color:var(--wine)}h3{font-size:14px;margin:16px 0 8px}label{display:block;font-weight:750;margin:10px 0 5px}input,textarea,select{font:inherit;width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff;color:var(--text)}textarea{min-height:125px;resize:vertical;font-family:ui-monospace,monospace;font-size:12px;line-height:1.5}button{font:inherit;font-weight:800;border:0;border-radius:999px;padding:10px 16px;background:var(--wine);color:#fff;cursor:pointer}button.secondary{background:#f2e9ec;color:var(--wine)}button:disabled{opacity:.5;cursor:not-allowed}.hint{color:var(--muted);font-size:12px}.status{margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--pale);white-space:pre-wrap}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}.tabs button{background:#eee5e8;color:#60414b}.tabs button.active{background:var(--wine);color:white}.panel{display:none}.panel.active{display:block}.preview{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:12px}.item{border:1px solid var(--line);border-radius:12px;padding:8px;min-width:0}.item img{width:100%;height:110px;object-fit:contain;background:var(--pale);border-radius:8px}.item input,.item select{margin-top:6px;padding:7px;font-size:12px}.item .row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:5px}.item .row button{width:100%;min-width:0;padding:8px 2px;font-size:11px;white-space:nowrap;letter-spacing:-.04em}.danger{background:#f9e9ec;color:#9b233d}.tiny{font-size:11px}.hidden{display:none!important}@media(max-width:600px){.shell{padding:15px 10px 40px}.card{padding:15px}.top{align-items:flex-start;flex-direction:column}}
+</style></head><body><main class="shell">
+<header class="top"><div class="brand">KIVE ADMIN<small>GRAPHIC DESIGNER · SITE MANAGEMENT</small></div><a href="../" style="color:var(--wine);font-weight:800">공개 페이지 ↗</a></header>
+<section class="card"><h2>GitHub 연결</h2><p class="hint">저장 버튼을 누르면 설정과 업로드한 이미지가 kive 저장소에 커밋됩니다. 토큰은 이 브라우저 탭에서만 사용하며 서버로 전송하지 않습니다.</p><div class="row"><div><label>GitHub 사용자명</label><input id="owner" value="kiveekv" autocomplete="off"></div><div><label>저장소 이름</label><input id="repo" value="kive-site" autocomplete="off"></div><div><label>브랜치</label><input id="branch" value="main" autocomplete="off"></div></div><label>Fine-grained Personal Access Token</label><input id="token" type="password" placeholder="github_pat_…" autocomplete="off"><p class="hint">GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens에서 생성하세요. Repository access는 kive-site만 선택, Contents 권한은 Read and write로 설정하면 됩니다. 토큰을 다른 사람과 공유하지 마세요.</p><div class="row"><button id="connect">저장소 연결 및 설정 불러오기</button><button class="secondary" id="forget">토큰 지우기</button></div><div id="connection" class="status">연결 전</div></section>
+<div class="tabs"><button class="active" data-tab="portfolio">포트폴리오</button><button data-tab="schedule">작업 일정</button><button data-tab="notices">공지사항</button><button data-tab="prices">견적 옵션</button><button data-tab="form">문의 양식</button></div>
+<section class="card panel active" id="panel-portfolio"><h2>포트폴리오 이미지</h2><p class="hint">이미지를 업로드하면 portfolio/ 폴더에 저장하고 공개 페이지 갤러리에 반영합니다. 여러 장 선택할 수 있어요.</p>
+<div class="row"><div><label>공개 사이트 정렬 방식</label><select id="portfolioSortMode"><option value="latest">최신순 (기본)</option><option value="manual">직접 정렬한 순서</option></select></div></div><p class="hint">직접 정렬하려면 아래 작품 카드의 ↑ ↓ 버튼으로 순서를 바꾼 뒤 포트폴리오 순서 저장을 눌러 주세요.</p><button id="savePortfolioOrder" class="secondary">포트폴리오 순서 저장</button><div class="row"><div><label>분류</label><select id="uploadCategory"><option value="poster">포스터</option><option value="schedule">스케줄표</option><option value="ppt">PPT</option><option value="replay">다시보기 썸네일</option><option value="banner">치지직 배너</option></select></div><div><label>이미지 파일</label><input id="images" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple></div></div><button id="uploadImages">선택한 이미지 업로드</button><div id="portfolioList" class="preview"></div></section>
+<section class="card panel" id="panel-schedule"><h2>작업 일정</h2><p class="hint">날짜별 상태를 JSON으로 관리합니다. 날짜 형식은 YYYY-MM-DD, 상태는 available(가능), closed(마감), off(휴무)입니다. 예: "2026-10-20":{"status":"closed","label":"마감"}</p><label>날짜별 일정 데이터</label><textarea id="scheduleJson" spellcheck="false"></textarea><button data-save="schedule">일정 저장</button></section>
+<section class="card panel" id="panel-notices"><h2>공지사항</h2><label>상단 안내 문구</label><input id="noticesIntro"><p class="hint">아래 JSON에서 공지 제목과 본문을 수정하거나 항목을 추가·삭제할 수 있습니다. 본문은 lines 배열에 한 줄씩 입력하세요.</p><label>공지 목록</label><textarea id="noticesJson" spellcheck="false" style="min-height:280px"></textarea><button data-save="notices">공지 저장</button></section>
+<section class="card panel" id="panel-prices"><h2>견적 옵션</h2><p class="hint">기본 작업은 하나를 선택하고, 추가 옵션은 여러 개 선택하는 구조입니다. price는 원 단위, purposes의 multiplier는 용도별 배수입니다.</p><label>견적 데이터</label><textarea id="pricesJson" spellcheck="false" style="min-height:360px"></textarea><button data-save="prices">견적 저장</button></section>
+<section class="card panel" id="panel-form"><h2>문의 양식</h2><p class="hint">현재 문의 양식의 필드 이름과 안내 문구를 수정할 수 있습니다. 키는 기존 필드와 연결되어 있으므로 키 이름은 바꾸지 마세요.</p><label>문의 필드 설정</label><textarea id="formJson" spellcheck="false" style="min-height:300px"></textarea><button data-save="formLabels">문의 양식 저장</button></section>
+<section class="card"><div class="row"><div><h2>저장 및 배포</h2><p class="hint">저장 시 site-data.json에 커밋됩니다. GitHub Pages가 자동으로 다시 배포하며 반영까지 1~2분 걸릴 수 있습니다.</p></div><div style="display:flex;align-items:center;justify-content:flex-end"><button id="saveAll">변경 사항 전체 저장</button></div></div><div id="status" class="status">저장소 연결 후 데이터를 수정하세요.</div></section>
+</main><script>
+const $=id=>document.getElementById(id);let cfg=null,token='',connected=false,sha=null;const api='https://api.github.com';
+const defaults={version:1,brand:{logo:'kive-logo.png',tagline:'GRAPHIC DESIGNER KIVE'},noticesIntro:'문의 전 공지사항을 반드시 확인해 주세요.',notices:[],schedule:{},prices:{base:[],extra:[],purposes:[]},formLabels:{},portfolioCategories:[{id:'poster',label:'포스터',panel:'kive-poster'},{id:'schedule',label:'스케줄표',panel:'kive-schedule'},{id:'ppt',label:'PPT',panel:'kive-ppt'},{id:'replay',label:'다시보기 썸네일',panel:'kive-replay'},{id:'banner',label:'치지직 배너',panel:'kive-banner'}],portfolio:[]};
+function note(s){$('status').textContent=s}function conn(s){$('connection').textContent=s}
+function auth(){const t=$('token').value.trim();if(!t)throw Error('GitHub 토큰을 입력해 주세요.');token=t;return {Authorization:'Bearer '+token,Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'}}
+function repoPath(){return '/repos/'+encodeURIComponent($('owner').value.trim())+'/'+encodeURIComponent($('repo').value.trim())}
+async function request(url,opts={}){const r=await fetch(url,opts);const data=await r.json().catch(()=>({}));if(!r.ok){const e=Error(data.message||('GitHub API 오류 '+r.status));e.status=r.status;throw e}return data}
+async function getFile(path){try{return await request(api+repoPath()+'/contents/'+path+'?ref='+encodeURIComponent($('branch').value.trim()),{headers:auth()})}catch(e){if(String(e.message).includes('Not Found'))return null;throw e}}
+async function readConfig(){const f=await getFile('site-data.json');if(!f){cfg=JSON.parse(JSON.stringify(defaults));sha=null;return}sha=f.sha;const bytes=Uint8Array.from(atob(f.content.replace(/\n/g,'')),c=>c.charCodeAt(0));cfg=JSON.parse(new TextDecoder().decode(bytes));}
+function fillEditors(){ $('portfolioSortMode').value=cfg.portfolioSortMode||'latest'; $('scheduleJson').value=JSON.stringify(cfg.schedule||{},null,2);$('noticesIntro').value=cfg.noticesIntro||'';$('noticesJson').value=JSON.stringify(cfg.notices||[],null,2);$('pricesJson').value=JSON.stringify(cfg.prices||{},null,2);$('formJson').value=JSON.stringify(cfg.formLabels||{},null,2);renderPortfolio(); }
+function renderPortfolio(){
+ const root=$('portfolioList');root.innerHTML='';
+ (cfg.portfolio||[]).forEach((p,i)=>{
+  const d=document.createElement('div');d.className='item';
+  const img=document.createElement('img');img.src=(p.path||'').replace(/^\.\//,'../');img.alt=p.title||'';d.appendChild(img);
+  const title=document.createElement('input');title.value=p.title||'';title.placeholder='작업물 제목';title.addEventListener('change',()=>cfg.portfolio[i].title=title.value);d.appendChild(title);
+  const cat=document.createElement('select');(cfg.portfolioCategories||[]).forEach(c=>{const o=document.createElement('option');o.value=c.id;o.textContent=c.label;o.selected=c.id===p.category;cat.appendChild(o)});cat.addEventListener('change',()=>cfg.portfolio[i].category=cat.value);d.appendChild(cat);
+  const moves=document.createElement('div');moves.className='row';moves.style.marginTop='7px';
+  const up=document.createElement('button');up.className='secondary';up.textContent='↑ 위로';up.disabled=i===0;up.onclick=()=>{const a=cfg.portfolio.splice(i,1)[0];cfg.portfolio.splice(i-1,0,a);$('portfolioSortMode').value='manual';cfg.portfolioSortMode='manual';renderPortfolio()};moves.appendChild(up);
+  const down=document.createElement('button');down.className='secondary';down.textContent='↓ 아래로';down.disabled=i===cfg.portfolio.length-1;down.onclick=()=>{const a=cfg.portfolio.splice(i,1)[0];cfg.portfolio.splice(i+1,0,a);$('portfolioSortMode').value='manual';cfg.portfolioSortMode='manual';renderPortfolio()};moves.appendChild(down);d.appendChild(moves);
+  const del=document.createElement('button');del.className='danger';del.style.width='100%';del.style.marginTop='7px';del.textContent='목록에서 제거';del.onclick=()=>{cfg.portfolio.splice(i,1);renderPortfolio()};d.appendChild(del);root.appendChild(d)
+ });
+}
+
+async function connect(){try{auth();conn('연결 확인 중…');await request(api+repoPath(),{headers:auth()});await readConfig();fillEditors();connected=true;conn('연결 완료 · '+$('owner').value+'/'+$('repo').value);note('설정을 불러왔습니다. 수정 후 각 저장 버튼 또는 전체 저장을 누르세요.')}catch(e){connected=false;conn('연결 실패: '+e.message)}}
+function parseEditor(id,key){try{cfg[key]=JSON.parse($(id).value)}catch(e){throw Error(id+' JSON 형식 오류: '+e.message)}}
+async function putFile(path,content,message,encoding='utf-8'){
+  const url=api+repoPath()+'/contents/'+path;
+  for(let attempt=0;attempt<2;attempt++){
+    const existing=await getFile(path);
+    const body={message,branch:$('branch').value.trim(),content};
+    if(existing&&existing.sha)body.sha=existing.sha;
+    try{
+      return await request(url,{method:'PUT',headers:{...auth(),'Content-Type':'application/json'},body:JSON.stringify(body)});
+    }catch(e){
+      const conflict=e.status===409||e.status===422||/does not match|sha/i.test(e.message);
+      if(attempt===0&&conflict)continue;
+      if(conflict)throw Error('GitHub 파일 버전이 계속 변경되어 저장하지 못했습니다. 저장소 연결 및 설정 불러오기를 다시 누른 뒤 재시도해 주세요. ('+e.message+')');
+      throw e;
+    }
+  }
+}
+function base64Unicode(s){const bytes=new TextEncoder().encode(s);let bin='';bytes.forEach(b=>bin+=String.fromCharCode(b));return btoa(bin)}
+async function saveConfig(keys){if(!connected)throw Error('먼저 GitHub 저장소에 연결해 주세요.');cfg.portfolioSortMode=$('portfolioSortMode').value||'latest';if(keys.includes('schedule'))parseEditor('scheduleJson','schedule');if(keys.includes('notices')){cfg.noticesIntro=$('noticesIntro').value;parseEditor('noticesJson','notices')}if(keys.includes('prices'))parseEditor('pricesJson','prices');if(keys.includes('formLabels'))parseEditor('formJson','formLabels');const result=await putFile('site-data.json',base64Unicode(JSON.stringify(cfg,null,2)),'KIVE 사이트 설정 업데이트');sha=result.content&&result.content.sha;note('저장 완료! GitHub Pages 반영까지 1~2분 기다려 주세요.');}
+$('savePortfolioOrder').onclick=async()=>{try{cfg.portfolioSortMode=$('portfolioSortMode').value;note('포트폴리오 순서 저장 중…');await saveConfig([])}catch(e){note('저장 실패: '+e.message)}};$('portfolioSortMode').onchange=()=>{cfg.portfolioSortMode=$('portfolioSortMode').value;};$('connect').onclick=connect;$('forget').onclick=()=>{$('token').value='';token='';connected=false;conn('토큰을 지웠습니다.')};document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id==='panel-'+b.dataset.tab))});document.querySelectorAll('[data-save]').forEach(b=>b.onclick=async()=>{try{note('저장 중…');await saveConfig([b.dataset.save])}catch(e){note('저장 실패: '+e.message)}});$('saveAll').onclick=async()=>{try{note('전체 저장 중…');await saveConfig(['schedule','notices','prices','formLabels'])}catch(e){note('저장 실패: '+e.message)}};
+$('uploadImages').onclick=async()=>{
+  let uploadedPaths=[];
+  try{
+    if(!connected)throw Error('먼저 GitHub 저장소에 연결해 주세요.');
+    const files=[...$('images').files];
+    if(!files.length)throw Error('업로드할 이미지를 선택해 주세요.');
+    const btn=$('uploadImages');btn.disabled=true;
+    for(let i=0;i<files.length;i++){
+      const f=files[i];
+      if(f.size>7*1024*1024)throw Error(f.name+' 파일이 7MB를 넘습니다. 이미지 크기를 줄여 주세요.');
+      const safeName=f.name.normalize('NFKD').replace(/[^a-zA-Z0-9._-]+/g,'-').replace(/^-+|-+$/g,'')||('image-'+Date.now()+'.png');
+      const path='portfolio/'+Date.now()+'-'+i+'-'+safeName;
+      note('이미지 파일 업로드 중… '+(i+1)+'/'+files.length+' ('+f.name+')');
+      const data=await f.arrayBuffer();let bin='';new Uint8Array(data).forEach(b=>bin+=String.fromCharCode(b));
+      await putFile(path,btoa(bin),'포트폴리오 이미지 추가: '+safeName);
+      const check=await getFile(path);
+      if(!check||!check.sha)throw Error(f.name+' 파일이 GitHub에서 확인되지 않습니다. 업로드를 완료하지 못했습니다.');
+      uploadedPaths.push(path);
+      cfg.portfolio.unshift({category:$('uploadCategory').value,title:f.name.replace(/\.[^.]+$/,''),path:'./'+path,createdAt:new Date().toISOString()});
+    }
+    renderPortfolio();
+    note('이미지 파일 '+uploadedPaths.length+'개 저장 확인 완료. 목록(site-data.json) 저장 중…');
+    await saveConfig([]);
+    $('images').value='';
+    note('완료! 이미지 파일 '+uploadedPaths.length+'개와 포트폴리오 목록을 GitHub에 저장했어요. 파일 위치: portfolio/');
+  }catch(e){
+    const prefix=uploadedPaths.length?'이미지 파일 '+uploadedPaths.length+'개는 업로드됐지만 목록 저장/후속 단계에서 문제가 생겼습니다. ':'업로드 실패: ';
+    note(prefix+e.message+(uploadedPaths.length?'\n확인할 파일: '+uploadedPaths.join(', '):''));
+  }finally{$('uploadImages').disabled=false;}
+};
+</script></body></html>
