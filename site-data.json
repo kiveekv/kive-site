@@ -184,8 +184,8 @@
   "portfolio": [
     {
       "category": "poster",
-      "title": "포스터",
-      "path": "./portfolio/1792117544408-0-.png"
+      "title": "[방찌님] 포스터",
+      "path": "./portfolio/1792117678831-0-.png"
     },
     {
       "category": "poster",
@@ -194,8 +194,9 @@
     },
     {
       "category": "poster",
-      "title": "[방찌님] 포스터",
-      "path": "./portfolio/1792117678831-0-.png"
+      "title": "포스터",
+      "path": "./portfolio/1792117544408-0-.png"
     }
-  ]
+  ],
+  "portfolioSortMode": "manual"
 }
