@@ -98,22 +98,26 @@ body.painting #stage .kive-day *{pointer-events:none}body.painting #stage .kive-
   #stage .kive-calendar-grid .kive-day{padding:5px!important}
 }
 @media (max-width:520px){
-  #stage .kive-day .kive-schedule-status-label{margin:auto 0 0 3px;font-size:9px}
+  #stage .kive-day .kive-schedule-status-label{margin:auto 0 3px 3px;font-size:9px}
 }
 @media (max-width:380px){
   #stage .kive-calendar-grid .kive-day{padding:4px!important}
   #stage .kive-calendar-grid .kive-day .kive-day-num{margin:1px 0 0 2px;font-size:11px!important}
-  #stage .kive-day .kive-schedule-status-label{margin:auto 0 0 2px;font-size:8px;letter-spacing:-.04em}
+  #stage .kive-day .kive-schedule-status-label{margin:auto 0 2px 2px;font-size:8px;letter-spacing:-.04em}
+}
+@media (max-width:340px){
+  #stage .kive-day .kive-schedule-status-label{margin:auto 0 1px 2px}
 }
 /* 모바일: 로고와 아래 문구 크기 줄임 */
 @media (max-width:600px){
-  #stage .kive-logo-match{width:150px!important}
-  #stage .kive-logo-title{font-size:11px!important}
+  #stage .kive-logo-match{width:125px!important}
+  #stage .kive-logo-title{font-size:10px!important}
 }
 /* iframe 안에서 높이 자동 맞춤 후에는 스크롤바 숨김 */
 html.kive-auto,html.kive-auto body{overflow:hidden!important}
 #stage .kive-inner>section:last-of-type{margin-bottom:0!important}
 #stage{padding-bottom:30px}
+@media (max-width:600px){#stage{padding-bottom:6px}}
 body.owner #stage{padding-bottom:140px}
 </style>
 </head>
