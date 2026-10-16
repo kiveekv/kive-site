@@ -183,6 +183,12 @@
   ],
   "portfolio": [
     {
+      "category": "replay",
+      "title": "다시보기 썸네일",
+      "path": "./portfolio/1792123514260-0-.png",
+      "createdAt": "2026-10-16T04:05:20.458Z"
+    },
+    {
       "category": "poster",
       "title": "01 표지",
       "path": "./portfolio/1792123449463-0-01-.png",
