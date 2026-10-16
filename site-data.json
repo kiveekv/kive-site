@@ -183,6 +183,12 @@
   ],
   "portfolio": [
     {
+      "category": "ppt",
+      "title": "01 표지",
+      "path": "./portfolio/1792122572849-0-01-.png",
+      "createdAt": "2026-10-16T03:49:38.259Z"
+    },
+    {
       "category": "schedule",
       "title": "스케줄표",
       "path": "./portfolio/1792119021341-0-.png",
