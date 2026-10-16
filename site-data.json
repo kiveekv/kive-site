@@ -184,6 +184,12 @@
   "portfolio": [
     {
       "category": "poster",
+      "title": "01 표지",
+      "path": "./portfolio/1792123449463-0-01-.png",
+      "createdAt": "2026-10-16T04:04:12.888Z"
+    },
+    {
+      "category": "poster",
       "title": "04 취미 및 특기",
       "path": "./portfolio/1792123440432-0-04-.png",
       "createdAt": "2026-10-16T04:04:04.581Z"
