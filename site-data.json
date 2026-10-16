@@ -176,12 +176,23 @@
       "panel": "kive-replay"
     },
     {
+      "id": "cat-유튜브-채널-아트",
+      "label": "유튜브 채널 아트",
+      "panel": "kive-cat-cat-유튜브-채널-아트"
+    },
+    {
       "id": "banner",
       "label": "치지직 배너",
       "panel": "kive-banner"
     }
   ],
   "portfolio": [
+    {
+      "category": "cat-유튜브-채널-아트",
+      "title": "[마리님] 유튜브 채널 아트",
+      "path": "./portfolio/1792124054392-0-.png",
+      "createdAt": "2026-10-16T04:14:18.553Z"
+    },
     {
       "category": "banner",
       "title": "치지직 배너 샘플1",
