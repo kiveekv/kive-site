@@ -2186,5 +2186,52 @@ if(/[?&]h(=|&|$)/.test(location.search)){
 })();
 </script>
 
+
+<script id="kive-calendar-schedule-bridge">
+(function(){
+  var DATA_URL='./site-data.json';
+  var wrap=document.getElementById('kive-calendar-scroll');
+  if(!wrap)return;
+  var schedule={};
+  var labels={off:'휴무',closed:'마감'};
+  function getDate(cell,slide){
+    if(cell.dataset.date)return cell.dataset.date;
+    var m=/kive-cal-(\d{4})-(\d{2})/.exec(slide.id||'');
+    var n=cell.querySelector('.kive-day-num');
+    if(!m||!n)return '';
+    var day=parseInt(n.textContent.trim(),10);
+    if(!day)return '';
+    return m[1]+'-'+m[2]+'-'+String(day).padStart(2,'0');
+  }
+  function apply(){
+    wrap.querySelectorAll('.kive-calendar-slide').forEach(function(slide){
+      slide.querySelectorAll('.kive-day:not(.kive-empty)').forEach(function(cell){
+        var date=getDate(cell,slide), item=schedule[date];
+        var status=item&&typeof item==='object'?item.status:item;
+        var label=labels[status]||'';
+        var tag=cell.querySelector('.kive-schedule-status-label');
+        if(!label){if(tag)tag.remove();cell.removeAttribute('data-kive-status');cell.style.removeProperty('background-color');return;}
+        if(!tag){tag=document.createElement('div');tag.className='kive-schedule-status-label';tag.setAttribute('aria-label',label);cell.appendChild(tag);}
+        tag.textContent=label;
+        tag.style.cssText='position:absolute;left:2px;right:2px;top:24px;text-align:center;font-size:10px;line-height:1.15;font-weight:800;white-space:nowrap;pointer-events:none;z-index:1;';
+        tag.style.color=status==='off'?'#81354B':'#72505B';
+        cell.style.backgroundColor=status==='off'?'#FAEDF0':'#F3E9EC';
+        cell.dataset.kiveStatus=status;
+      });
+    });
+  }
+  function load(){
+    fetch(DATA_URL+'?schedule='+Date.now(),{cache:'no-store'})
+      .then(function(r){if(!r.ok)throw new Error('site-data.json unavailable');return r.json();})
+      .then(function(data){schedule=data.schedule&&typeof data.schedule==='object'?data.schedule:{};apply();})
+      .catch(function(){});
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',load);else load();
+  var observer=new MutationObserver(function(){apply();});
+  observer.observe(wrap,{childList:true,subtree:true});
+  wrap.addEventListener('click',function(){setTimeout(apply,0);},true);
+})();
+</script>
+
 </body>
 </html>
