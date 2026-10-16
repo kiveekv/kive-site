@@ -90,27 +90,30 @@ body.painting #stage .kive-day *{pointer-events:none}body.painting #stage .kive-
 </style>
 <style>.kive-footer,.kive-top-button,.kive-top-row{display:none!important}
 
-/* 달력: 휴무/마감 문구는 항상 날짜 칸 안쪽 아래에 배치 */
-#stage .kive-calendar-grid .kive-day{overflow:hidden}
-#stage .kive-day .kive-schedule-status-label{position:absolute;left:9px;right:auto;top:27px;bottom:auto;margin:0;padding:0;text-align:left;font-size:12px;line-height:1;font-weight:800;letter-spacing:-.02em;white-space:nowrap;pointer-events:none}
+/* 달력: 날짜 숫자와 휴무/마감 문구는 같은 왼쪽 선에 정렬 */
+#stage .kive-calendar-grid .kive-day:not(.kive-empty){display:flex;flex-direction:column;align-items:flex-start;overflow:hidden}
+#stage .kive-calendar-grid .kive-day .kive-day-num{margin:3px 0 0 3px}
+#stage .kive-day .kive-schedule-status-label{position:static;margin:3px 0 0 3px;padding:0;text-align:left;font-size:11px;line-height:1;font-weight:800;letter-spacing:-.02em;white-space:nowrap;pointer-events:none}
 @media (max-width:768px){
   #stage .kive-calendar-grid .kive-day{padding:5px!important}
-  #stage .kive-day .kive-schedule-status-label{left:8px;top:25px}
 }
 @media (max-width:520px){
-  #stage .kive-day .kive-schedule-status-label{top:auto;bottom:5px;font-size:9px}
+  #stage .kive-day .kive-schedule-status-label{margin:auto 0 0 3px;font-size:9px}
 }
 @media (max-width:380px){
   #stage .kive-calendar-grid .kive-day{padding:4px!important}
-  #stage .kive-day .kive-day-num{font-size:11px!important}
-  #stage .kive-day .kive-schedule-status-label{left:6px;top:auto;bottom:4px;font-size:8px;letter-spacing:-.04em}
+  #stage .kive-calendar-grid .kive-day .kive-day-num{margin:1px 0 0 2px;font-size:11px!important}
+  #stage .kive-day .kive-schedule-status-label{margin:auto 0 0 2px;font-size:8px;letter-spacing:-.04em}
 }
-/* 날짜 숫자 위치: 살짝 오른쪽 아래로 */
-#stage .kive-calendar-grid .kive-day .kive-day-num{margin:3px 0 0 3px}
-@media (max-width:380px){#stage .kive-calendar-grid .kive-day .kive-day-num{margin:1px 0 0 2px}}
+/* 모바일: 로고와 아래 문구 크기 줄임 */
+@media (max-width:600px){
+  #stage .kive-logo-match{width:150px!important}
+  #stage .kive-logo-title{font-size:11px!important}
+}
 /* iframe 안에서 높이 자동 맞춤 후에는 스크롤바 숨김 */
 html.kive-auto,html.kive-auto body{overflow:hidden!important}
-#stage{padding-bottom:20px}
+#stage .kive-inner>section:last-of-type{margin-bottom:0!important}
+#stage{padding-bottom:30px}
 body.owner #stage{padding-bottom:140px}
 </style>
 </head>
@@ -1005,6 +1008,7 @@ if(/[?&]h(=|&|$)/.test(location.search)){
   render();
   load();
   document.addEventListener('visibilitychange',function(){if(!document.hidden)load();});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){window.dispatchEvent(new Event('resize'));});
 })();
 
 /* iframe 높이 자동 맞춤: 부모(아트머그) 쪽 스크립트가 있으면 높이를 알려 준다 */
