@@ -1,0 +1,185 @@
+{
+  "version": 1,
+  "brand": {
+    "logo": "kive-logo.png",
+    "tagline": "GRAPHIC DESIGNER KIVE"
+  },
+  "noticesIntro": "문의 전 공지사항을 반드시 확인해 주세요.",
+  "notices": [
+    {
+      "title": "",
+      "lines": [
+        "",
+        ""
+      ]
+    },
+    {
+      "title": "",
+      "lines": [
+        "",
+        ""
+      ]
+    },
+    {
+      "title": "",
+      "lines": [
+        "",
+        ""
+      ]
+    },
+    {
+      "title": "",
+      "lines": [
+        "",
+        "",
+        ""
+      ]
+    }
+  ],
+  "schedule": {},
+  "prices": {
+    "base": [
+      {
+        "label": "",
+        "price": 30000,
+        "note": "",
+        "checked": false
+      },
+      {
+        "label": "",
+        "price": 40000,
+        "note": "",
+        "checked": false
+      },
+      {
+        "label": "",
+        "price": 40000,
+        "note": "",
+        "checked": false
+      },
+      {
+        "label": "",
+        "price": 50000,
+        "note": "",
+        "checked": false
+      },
+      {
+        "label": "",
+        "price": 25000,
+        "note": "",
+        "checked": false
+      },
+      {
+        "label": "",
+        "price": 20000,
+        "note": "",
+        "checked": false
+      }
+    ],
+    "extra": [
+      {
+        "label": "",
+        "price": 5000,
+        "note": "",
+        "checked": false
+      },
+      {
+        "label": "",
+        "price": 5000,
+        "note": "",
+        "checked": false
+      },
+      {
+        "label": "",
+        "price": 20000,
+        "note": "",
+        "checked": false
+      },
+      {
+        "label": "",
+        "price": 30000,
+        "note": "",
+        "checked": false
+      }
+    ],
+    "purposes": [
+      {
+        "label": "방송용",
+        "multiplier": 1,
+        "text": "방송용"
+      },
+      {
+        "label": "상업용",
+        "multiplier": 2,
+        "text": "상업용"
+      },
+      {
+        "label": "외주용",
+        "multiplier": 3,
+        "text": "외주용"
+      }
+    ]
+  },
+  "formLabels": {
+    "nickname": {
+      "label": "방송 닉네임",
+      "placeholder": "방송 닉네임을 입력해 주세요."
+    },
+    "channel": {
+      "label": "방송 채널 주소",
+      "placeholder": "방송 채널 주소를 입력해 주세요."
+    },
+    "type": {
+      "label": "신청 타입 종류",
+      "placeholder": "신청하실 작업물의 종류를 입력해 주세요."
+    },
+    "deadline": {
+      "label": "희망 마감 날짜",
+      "placeholder": ""
+    },
+    "portfolioDate": {
+      "label": "포트폴리오 공개 희망 날짜",
+      "placeholder": ""
+    },
+    "mood": {
+      "label": "원하는 분위기 및 디자인 요소",
+      "placeholder": "원하는 분위기, 레퍼런스, 디자인 요소 등을 작성해 주세요."
+    },
+    "text": {
+      "label": "들어갈 문구 및 내용",
+      "placeholder": "작업물에 들어갈 문구를 작성해 주세요."
+    },
+    "extraRequest": {
+      "label": "양식 외 추가 요청 사항",
+      "placeholder": "추가 요청 사항이 있다면 작성해 주세요."
+    }
+  },
+  "portfolioCategories": [
+    {
+      "id": "poster",
+      "label": "포스터",
+      "panel": "kive-poster"
+    },
+    {
+      "id": "schedule",
+      "label": "스케줄표",
+      "panel": "kive-schedule"
+    },
+    {
+      "id": "ppt",
+      "label": "PPT",
+      "panel": "kive-ppt"
+    },
+    {
+      "id": "replay",
+      "label": "다시보기 썸네일",
+      "panel": "kive-replay"
+    },
+    {
+      "id": "banner",
+      "label": "치지직 배너",
+      "panel": "kive-banner"
+    }
+  ],
+  "portfolio": []
+}
