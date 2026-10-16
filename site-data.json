@@ -184,30 +184,6 @@
   "portfolio": [
     {
       "category": "ppt",
-      "title": "04 취미 및 특기",
-      "path": "./portfolio/1792122676527-0-04-.png",
-      "createdAt": "2026-10-16T03:51:21.379Z"
-    },
-    {
-      "category": "ppt",
-      "title": "01 표지",
-      "path": "./portfolio/1792122662247-0-01-.png",
-      "createdAt": "2026-10-16T03:51:07.251Z"
-    },
-    {
-      "category": "ppt",
-      "title": "01 표지",
-      "path": "./portfolio/1792122624263-0-01-.png",
-      "createdAt": "2026-10-16T03:50:28.141Z"
-    },
-    {
-      "category": "ppt",
-      "title": "02 프로필",
-      "path": "./portfolio/1792122632151-0-02-.png",
-      "createdAt": "2026-10-16T03:50:36.673Z"
-    },
-    {
-      "category": "ppt",
       "title": "01 표지",
       "path": "./portfolio/1792122572849-0-01-.png",
       "createdAt": "2026-10-16T03:49:38.259Z"
