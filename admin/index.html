@@ -39,24 +39,37 @@ function renderPortfolio(){
 
 async function connect(){try{auth();conn('연결 확인 중…');await request(api+repoPath(),{headers:auth()});await readConfig();fillEditors();connected=true;conn('연결 완료 · '+$('owner').value+'/'+$('repo').value);note('설정을 불러왔습니다. 수정 후 각 저장 버튼 또는 전체 저장을 누르세요.')}catch(e){connected=false;conn('연결 실패: '+e.message)}}
 function parseEditor(id,key){try{cfg[key]=JSON.parse($(id).value)}catch(e){throw Error(id+' JSON 형식 오류: '+e.message)}}
+let writeQueue=Promise.resolve();let configSaveInProgress=false;
 async function putFile(path,content,message,encoding='utf-8'){
-  const url=api+repoPath()+'/contents/'+path;
-  for(let attempt=0;attempt<2;attempt++){
-    const existing=await getFile(path);
-    const body={message,branch:$('branch').value.trim(),content};
-    if(existing&&existing.sha)body.sha=existing.sha;
-    try{
-      return await request(url,{method:'PUT',headers:{...auth(),'Content-Type':'application/json'},body:JSON.stringify(body)});
-    }catch(e){
-      const conflict=e.status===409||e.status===422||/does not match|sha/i.test(e.message);
-      if(attempt===0&&conflict)continue;
-      if(conflict)throw Error('GitHub 파일 버전이 계속 변경되어 저장하지 못했습니다. 저장소 연결 및 설정 불러오기를 다시 누른 뒤 재시도해 주세요. ('+e.message+')');
-      throw e;
+  // Serialize writes from this admin page so two buttons/uploads cannot race on the same SHA.
+  const task=async()=>{
+    const url=api+repoPath()+'/contents/'+path;
+    for(let attempt=0;attempt<5;attempt++){
+      const existing=await getFile(path);
+      const body={message,branch:$('branch').value.trim(),content};
+      if(existing&&existing.sha)body.sha=existing.sha;
+      try{
+        const result=await request(url,{method:'PUT',headers:{...auth(),'Content-Type':'application/json'},body:JSON.stringify(body)});
+        if(path==='site-data.json'&&result.content&&result.content.sha)sha=result.content.sha;
+        return result;
+      }catch(e){
+        const conflict=e.status===409||e.status===422||/does not match|sha/i.test(e.message);
+        if(conflict&&attempt<4){
+          note('GitHub 파일 버전이 겹쳐 최신 버전을 다시 확인하고 있어요… ('+(attempt+1)+'/4)');
+          await new Promise(resolve=>setTimeout(resolve,250*(attempt+1)));
+          continue;
+        }
+        if(conflict)throw Error('GitHub에서 파일 버전이 여러 번 바뀌어 저장을 완료하지 못했습니다. 다른 관리자 탭을 닫고 설정을 다시 불러온 뒤 재시도해 주세요. ('+e.message+')');
+        throw e;
+      }
     }
-  }
+  };
+  const result=writeQueue.then(task,task);
+  writeQueue=result.catch(()=>{});
+  return result;
 }
 function base64Unicode(s){const bytes=new TextEncoder().encode(s);let bin='';bytes.forEach(b=>bin+=String.fromCharCode(b));return btoa(bin)}
-async function saveConfig(keys){if(!connected)throw Error('먼저 GitHub 저장소에 연결해 주세요.');cfg.portfolioSortMode=$('portfolioSortMode').value||'latest';if(keys.includes('schedule'))parseEditor('scheduleJson','schedule');if(keys.includes('notices')){cfg.noticesIntro=$('noticesIntro').value;parseEditor('noticesJson','notices')}if(keys.includes('prices'))parseEditor('pricesJson','prices');if(keys.includes('formLabels'))parseEditor('formJson','formLabels');const result=await putFile('site-data.json',base64Unicode(JSON.stringify(cfg,null,2)),'KIVE 사이트 설정 업데이트');sha=result.content&&result.content.sha;note('저장 완료! GitHub Pages 반영까지 1~2분 기다려 주세요.');}
+async function saveConfig(keys){if(configSaveInProgress)throw Error('이미 저장 중이에요. 잠시 기다린 뒤 다시 시도해 주세요.');if(!connected)throw Error('먼저 GitHub 저장소에 연결해 주세요.');configSaveInProgress=true;const controls=[...document.querySelectorAll('[data-save]'),$('saveAll'),$('savePortfolioOrder'),$('uploadImages')];controls.forEach(b=>{if(b)b.disabled=true});try{cfg.portfolioSortMode=$('portfolioSortMode').value||'latest';if(keys.includes('schedule'))parseEditor('scheduleJson','schedule');if(keys.includes('notices')){cfg.noticesIntro=$('noticesIntro').value;parseEditor('noticesJson','notices')}if(keys.includes('prices'))parseEditor('pricesJson','prices');if(keys.includes('formLabels'))parseEditor('formJson','formLabels');const result=await putFile('site-data.json',base64Unicode(JSON.stringify(cfg,null,2)),'KIVE 사이트 설정 업데이트');sha=result.content&&result.content.sha;note('저장 완료! GitHub Pages 반영까지 1~2분 기다려 주세요.')}finally{configSaveInProgress=false;controls.forEach(b=>{if(b)b.disabled=false})}}
 $('savePortfolioOrder').onclick=async()=>{try{cfg.portfolioSortMode=$('portfolioSortMode').value;note('포트폴리오 순서 저장 중…');await saveConfig([])}catch(e){note('저장 실패: '+e.message)}};$('portfolioSortMode').onchange=()=>{cfg.portfolioSortMode=$('portfolioSortMode').value;};$('connect').onclick=connect;$('forget').onclick=()=>{$('token').value='';token='';connected=false;conn('토큰을 지웠습니다.')};document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id==='panel-'+b.dataset.tab))});document.querySelectorAll('[data-save]').forEach(b=>b.onclick=async()=>{try{note('저장 중…');await saveConfig([b.dataset.save])}catch(e){note('저장 실패: '+e.message)}});$('saveAll').onclick=async()=>{try{note('전체 저장 중…');await saveConfig(['schedule','notices','prices','formLabels'])}catch(e){note('저장 실패: '+e.message)}};
 $('uploadImages').onclick=async()=>{
   let uploadedPaths=[];
