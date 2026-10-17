@@ -197,6 +197,12 @@
   ],
   "portfolio": [
     {
+      "category": "poster",
+      "title": "IMG_1964",
+      "path": "./portfolio/1792205175022-0-IMG_1964.png",
+      "createdAt": "2026-10-17T02:46:19.791Z"
+    },
+    {
       "category": "ppt",
       "title": "01 표지",
       "path": "./portfolio/1792134477286-0-01-.png",
