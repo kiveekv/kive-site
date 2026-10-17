@@ -2,16 +2,22 @@
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KIVE ADMIN</title>
 <style>
 :root{--wine:#81354B;--pale:#FAF7F8;--line:#E8DDE1;--text:#292326;--muted:#82747A}*{box-sizing:border-box}body{margin:0;background:#f7f4f5;color:var(--text);font:14px/1.55 "SUIT","Pretendard",system-ui,sans-serif}.shell{max-width:1100px;margin:auto;padding:24px 16px 70px}.top{display:flex;align-items:center;gap:14px;justify-content:space-between;margin-bottom:22px}.brand{font-size:22px;font-weight:900;letter-spacing:-.05em;color:var(--wine)}.brand small{display:block;font-size:10px;letter-spacing:.16em;color:var(--muted)}.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:16px;box-shadow:0 3px 14px #81354b08}.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:180px}h2{font-size:17px;margin:0 0 14px;color:var(--wine)}h3{font-size:14px;margin:16px 0 8px}label{display:block;font-weight:750;margin:10px 0 5px}input,textarea,select{font:inherit;width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff;color:var(--text)}textarea{min-height:125px;resize:vertical;font-family:ui-monospace,monospace;font-size:12px;line-height:1.5}button{font:inherit;font-weight:800;border:0;border-radius:999px;padding:10px 16px;background:var(--wine);color:#fff;cursor:pointer}button.secondary{background:#f2e9ec;color:var(--wine)}button:disabled{opacity:.5;cursor:not-allowed}.hint{color:var(--muted);font-size:12px}.status{margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--pale);white-space:pre-wrap}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}.tabs button{background:#eee5e8;color:#60414b}.tabs button.active{background:var(--wine);color:white}.panel{display:none}.panel.active{display:block}.preview{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:12px}.item{border:1px solid var(--line);border-radius:12px;padding:8px;min-width:0}.item img{width:100%;height:110px;object-fit:contain;background:var(--pale);border-radius:8px}.item input,.item select{margin-top:6px;padding:7px;font-size:12px}.item .row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:5px}.item .row button{width:100%;min-width:0;padding:8px 2px;font-size:11px;white-space:nowrap;letter-spacing:-.04em}.danger{background:#f9e9ec;color:#9b233d}.tiny{font-size:11px}.hidden{display:none!important}@media(max-width:600px){.shell{padding:15px 10px 40px}.card{padding:15px}.top{align-items:flex-start;flex-direction:column}}
+.cat-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:6px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px}.cat-row>*{min-width:0}.cat-row input{padding:9px 10px}.cat-row button{padding:9px 13px}.cat-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0}.cat-tabs button{background:#eee5e8;color:#60414b;padding:8px 13px;font-size:13px}.cat-tabs button.active{background:var(--wine);color:#fff}.ed-list{display:grid;gap:10px}.ed-item{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--pale);min-width:0}.ed-item label{margin:8px 0 4px;font-size:12px;color:var(--muted)}.ed-item>div:first-child label,.ed-grid label{margin-top:0}.ed-item textarea{font-family:inherit;font-size:13px;line-height:1.6;min-height:84px;overflow:hidden}.ed-grid{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:8px;margin-bottom:2px}.ed-grid>div{min-width:0}.ed-actions{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}.ed-actions button{padding:7px 12px;font-size:12px}.ed-tag{font-size:11px;color:var(--muted);font-weight:750;margin-bottom:6px}@media(max-width:520px){.cat-row{grid-template-columns:repeat(3,minmax(0,1fr))}.cat-row input{grid-column:1/-1}.cat-row button{padding:9px 4px}.ed-grid{grid-template-columns:minmax(0,1fr)}.ed-item{padding:10px}}
 </style></head><body><main class="shell">
 <header class="top"><div class="brand">KIVE ADMIN<small>GRAPHIC DESIGNER · SITE MANAGEMENT</small></div><a href="../" style="color:var(--wine);font-weight:800">공개 페이지 ↗</a></header>
 <section class="card"><h2>GitHub 연결</h2><p class="hint">저장 버튼을 누르면 설정과 업로드한 이미지가 kive 저장소에 커밋됩니다. 토큰은 이 브라우저 탭에서만 사용하며 서버로 전송하지 않습니다.</p><div class="row"><div><label>GitHub 사용자명</label><input id="owner" value="kiveekv" autocomplete="off"></div><div><label>저장소 이름</label><input id="repo" value="kive-site" autocomplete="off"></div><div><label>브랜치</label><input id="branch" value="main" autocomplete="off"></div></div><label>Fine-grained Personal Access Token</label><input id="token" type="password" placeholder="github_pat_…" autocomplete="off"><p class="hint">GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens에서 생성하세요. Repository access는 kive-site만 선택, Contents 권한은 Read and write로 설정하면 됩니다. 토큰을 다른 사람과 공유하지 마세요.</p><div class="row"><button id="connect">저장소 연결 및 설정 불러오기</button><button class="secondary" id="forget">토큰 지우기</button></div><div id="connection" class="status">연결 전</div></section>
 <div class="tabs"><button class="active" data-tab="portfolio">포트폴리오</button><button data-tab="schedule">작업 일정</button><button data-tab="notices">공지사항</button><button data-tab="prices">견적 옵션</button><button data-tab="form">문의 양식</button></div>
 <section class="card panel active" id="panel-portfolio"><h2>포트폴리오 이미지</h2><p class="hint">이미지를 업로드하면 portfolio/ 폴더에 저장하고 공개 페이지 갤러리에 반영합니다. 여러 장 선택할 수 있어요.</p>
-<div class="row"><div><label>공개 사이트 정렬 방식</label><select id="portfolioSortMode"><option value="latest">최신순 (기본)</option><option value="manual">직접 정렬한 순서</option></select></div></div><p class="hint">직접 정렬하려면 아래 작품 카드의 ↑ ↓ 버튼으로 순서를 바꾼 뒤 포트폴리오 순서 저장을 눌러 주세요.</p><button id="savePortfolioOrder" class="secondary">포트폴리오 순서 저장</button><div class="card" style="margin:14px 0;padding:14px;background:#FAF7F8"><h3 style="margin-top:0">포트폴리오 카테고리 관리</h3><p class="hint">카테고리를 추가하고 ↑ ↓ 버튼으로 공개 페이지에 표시될 순서를 정할 수 있어요. 기존 카테고리를 삭제하면 해당 카테고리의 작품은 미분류가 되므로, 삭제 전 작품 분류를 변경해 주세요.</p><div class="row"><div><label>새 카테고리 이름</label><input id="newCategoryLabel" placeholder="예: 로고 디자인" maxlength="30"></div><div style="display:flex;align-items:end"><button id="addCategory" type="button">카테고리 추가</button></div></div><div id="categoryList" style="display:grid;gap:8px;margin-top:12px"></div><button id="saveCategories" class="secondary" type="button" style="margin-top:12px">카테고리 변경 저장</button></div><div class="row"><div><label>분류</label><select id="uploadCategory"><option value="poster">포스터</option><option value="schedule">스케줄표</option><option value="ppt">PPT</option><option value="replay">다시보기 썸네일</option><option value="banner">치지직 배너</option></select></div><div><label>이미지 파일</label><input id="images" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple></div></div><button id="uploadImages">선택한 이미지 업로드</button><div id="portfolioList" class="preview"></div></section>
+<div class="card" style="margin:14px 0;padding:14px;background:#FAF7F8"><h3 style="margin-top:0">포트폴리오 카테고리 관리</h3><p class="hint">카테고리를 추가하고 ↑ ↓ 버튼으로 공개 페이지에 표시될 순서를 정할 수 있어요. 기존 카테고리를 삭제하면 해당 카테고리의 작품은 미분류가 되므로, 삭제 전 작품 분류를 변경해 주세요.</p><div class="row"><div><label>새 카테고리 이름</label><input id="newCategoryLabel" placeholder="예: 로고 디자인" maxlength="30"></div><div style="display:flex;align-items:end"><button id="addCategory" type="button">카테고리 추가</button></div></div><div id="categoryList" style="display:grid;gap:8px;margin-top:12px"></div><button id="saveCategories" class="secondary" type="button" style="margin-top:12px">카테고리 변경 저장</button></div>
+<div class="row"><div><label>분류</label><select id="uploadCategory"><option value="poster">포스터</option><option value="schedule">스케줄표</option><option value="ppt">PPT</option><option value="replay">다시보기 썸네일</option><option value="banner">치지직 배너</option></select></div><div><label>이미지 파일</label><input id="images" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple></div></div><button id="uploadImages">선택한 이미지 업로드</button>
+<h3 style="margin-top:22px">카테고리별 작품 순서</h3><p class="hint">카테고리 탭을 고른 뒤 작품 카드의 ↑ ↓ 버튼으로 그 카테고리 안에서만 순서를 바꿀 수 있어요. 순서를 바꾸면 해당 카테고리는 자동으로 '직접 정렬한 순서'가 되고, 다른 카테고리에는 영향이 없습니다. 바꾼 뒤 포트폴리오 순서 저장을 눌러 주세요.</p>
+<div id="portfolioTabs" class="cat-tabs"></div>
+<div class="row"><div><label>이 카테고리의 공개 사이트 정렬 방식</label><select id="portfolioSortMode"><option value="latest">최신순 (기본)</option><option value="manual">직접 정렬한 순서</option></select></div></div>
+<div style="margin-top:12px"><button id="savePortfolioOrder" class="secondary">포트폴리오 순서 저장</button></div><div id="portfolioList" class="preview"></div></section>
 <section class="card panel" id="panel-schedule"><h2>작업 일정</h2><p class="hint">날짜를 선택한 뒤 상태를 고르고 적용하세요. 적용한 변경은 아래 저장 버튼을 눌러야 공개 사이트에 반영됩니다.</p><div class="row"><div><label for="scheduleDate">날짜 선택</label><input id="scheduleDate" type="date"></div><div><label for="scheduleStatus">작업 상태</label><select id="scheduleStatus"><option value="available">작업 가능</option><option value="off">휴무</option><option value="closed">마감</option></select></div><div style="display:flex;align-items:end"><button id="applyScheduleStatus" type="button">선택한 날짜에 적용</button></div></div><div id="scheduleCurrentStatus" class="status">날짜를 선택하면 해당 날짜의 현재 상태가 표시됩니다.</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button id="saveScheduleUI" type="button">일정 저장</button><button id="clearScheduleDate" type="button" class="secondary">선택 날짜 상태 지우기</button></div><details style="margin-top:16px"><summary style="cursor:pointer;font-weight:750;color:var(--wine)">고급 설정: 일정 데이터(JSON)</summary><p class="hint">필요한 경우에만 직접 수정하세요. 날짜 형식은 YYYY-MM-DD, 상태는 available(가능), closed(마감), off(휴무)입니다.</p><label>날짜별 일정 데이터</label><textarea id="scheduleJson" spellcheck="false"></textarea><button data-save="schedule">JSON 일정 저장</button></details></section>
-<section class="card panel" id="panel-notices"><h2>공지사항</h2><label>상단 안내 문구</label><input id="noticesIntro"><p class="hint">아래 JSON에서 공지 제목과 본문을 수정하거나 항목을 추가·삭제할 수 있습니다. 본문은 lines 배열에 한 줄씩 입력하세요.</p><label>공지 목록</label><textarea id="noticesJson" spellcheck="false" style="min-height:280px"></textarea><button data-save="notices">공지 저장</button></section>
-<section class="card panel" id="panel-prices"><h2>견적 옵션</h2><p class="hint">기본 작업은 하나를 선택하고, 추가 옵션은 여러 개 선택하는 구조입니다. price는 원 단위, purposes의 multiplier는 용도별 배수입니다.</p><label>견적 데이터</label><textarea id="pricesJson" spellcheck="false" style="min-height:360px"></textarea><button data-save="prices">견적 저장</button></section>
-<section class="card panel" id="panel-form"><h2>문의 양식</h2><p class="hint">현재 문의 양식의 필드 이름과 안내 문구를 수정할 수 있습니다. 키는 기존 필드와 연결되어 있으므로 키 이름은 바꾸지 마세요.</p><label>문의 필드 설정</label><textarea id="formJson" spellcheck="false" style="min-height:300px"></textarea><button data-save="formLabels">문의 양식 저장</button></section>
+<section class="card panel" id="panel-notices"><h2>공지사항</h2><p class="hint">글자를 눌러 바로 수정하세요. 현재 공개 페이지의 문구가 처음부터 채워져 있고, 수정한 내용은 저장 버튼을 눌러야 공개 사이트에 반영됩니다. 본문은 문단을 빈 줄로 나누고, 문단 안에서 줄을 바꾸려면 Enter를 누르세요.</p><label>상단 안내 문구</label><input id="noticesIntro"><h3>공지 목록</h3><div id="noticesList" class="ed-list"></div><div class="ed-actions"><button id="addNotice" type="button" class="secondary">+ 공지 항목 추가</button></div><div style="margin-top:14px"><button data-save="notices">공지 저장</button></div></section>
+<section class="card panel" id="panel-prices"><h2>견적 옵션</h2><p class="hint">글자와 금액을 눌러 바로 수정하세요. 기본 작업과 추가 옵션은 방문자가 여러 개를 중복해서 선택할 수 있어요. 수정한 내용은 저장 버튼을 눌러야 공개 사이트에 반영됩니다.</p><h3>기본 작업</h3><div id="priceBaseList" class="ed-list"></div><div class="ed-actions"><button id="addBase" type="button" class="secondary">+ 기본 작업 추가</button></div><h3>추가 옵션</h3><div id="priceExtraList" class="ed-list"></div><div class="ed-actions"><button id="addExtra" type="button" class="secondary">+ 추가 옵션 추가</button></div><h3>사용 목적 (금액 배수)</h3><p class="hint">용도 이름과 배수를 수정할 수 있어요. 용도는 3개로 고정이고, 문의 양식의 사용 목적 버튼에도 함께 반영됩니다.</p><div id="purposeList" class="ed-list"></div><div style="margin-top:14px"><button data-save="prices">견적 저장</button></div></section>
+<section class="card panel" id="panel-form"><h2>문의 양식</h2><p class="hint">항목 이름과 입력창 안내 문구를 눌러 바로 수정하세요. 수정한 내용은 저장 버튼을 눌러야 공개 사이트에 반영됩니다.</p><div id="formList" class="ed-list"></div><div style="margin-top:14px"><button data-save="formLabels">문의 양식 저장</button></div></section>
 <section class="card"><div class="row"><div><h2>저장 및 배포</h2><p class="hint">저장 시 site-data.json에 커밋됩니다. GitHub Pages가 자동으로 다시 배포하며 반영까지 1~2분 걸릴 수 있습니다.</p></div><div style="display:flex;align-items:center;justify-content:flex-end"><button id="saveAll">변경 사항 전체 저장</button></div></div><div id="status" class="status">저장소 연결 후 데이터를 수정하세요.</div></section>
 </main><script>
 const $=id=>document.getElementById(id);let cfg=null,token='',connected=false,sha=null;const api='https://api.github.com';
@@ -26,15 +32,110 @@ function categoryIdFromLabel(label){let base=String(label||'').trim().toLowerCas
 function renderCategories(){
  const root=$('categoryList');root.innerHTML='';
  (cfg.portfolioCategories||[]).forEach((c,i)=>{
-  const row=document.createElement('div');row.className='row';row.style.cssText='align-items:center;flex-wrap:nowrap;background:#fff;border:1px solid #E8DDE1;border-radius:10px;padding:8px';
+  const row=document.createElement('div');row.className='cat-row';
   const label=document.createElement('input');label.value=c.label||c.id;label.setAttribute('aria-label','카테고리 이름');label.style.minWidth='0';label.addEventListener('change',()=>{c.label=label.value.trim()||c.id;renderCategories();renderPortfolio();});row.appendChild(label);
-  const up=document.createElement('button');up.type='button';up.className='secondary';up.textContent='↑';up.disabled=i===0;up.style.flex='0 0 auto';up.onclick=()=>{const x=cfg.portfolioCategories.splice(i,1)[0];cfg.portfolioCategories.splice(i-1,0,x);renderCategories();};row.appendChild(up);
-  const down=document.createElement('button');down.type='button';down.className='secondary';down.textContent='↓';down.disabled=i===cfg.portfolioCategories.length-1;down.style.flex='0 0 auto';down.onclick=()=>{const x=cfg.portfolioCategories.splice(i,1)[0];cfg.portfolioCategories.splice(i+1,0,x);renderCategories();};row.appendChild(down);
+  const up=document.createElement('button');up.type='button';up.className='secondary';up.textContent='↑';up.disabled=i===0;up.style.flex='0 0 auto';up.onclick=()=>{const x=cfg.portfolioCategories.splice(i,1)[0];cfg.portfolioCategories.splice(i-1,0,x);renderCategories();renderPortfolio();};row.appendChild(up);
+  const down=document.createElement('button');down.type='button';down.className='secondary';down.textContent='↓';down.disabled=i===cfg.portfolioCategories.length-1;down.style.flex='0 0 auto';down.onclick=()=>{const x=cfg.portfolioCategories.splice(i,1)[0];cfg.portfolioCategories.splice(i+1,0,x);renderCategories();renderPortfolio();};row.appendChild(down);
   const del=document.createElement('button');del.type='button';del.className='danger';del.textContent='삭제';del.style.flex='0 0 auto';del.onclick=()=>{if((cfg.portfolio||[]).some(p=>p.category===c.id)){if(!confirm('이 카테고리를 사용하는 작품이 있습니다. 삭제하면 해당 작품은 공개 페이지에 표시되지 않을 수 있어요. 삭제할까요?'))return;}cfg.portfolioCategories.splice(i,1);renderCategories();renderPortfolio();};row.appendChild(del);root.appendChild(row);
  });
  const select=$('uploadCategory');const old=select.value;select.innerHTML='';(cfg.portfolioCategories||[]).forEach(c=>{const o=document.createElement('option');o.value=c.id;o.textContent=c.label;o.selected=c.id===old;select.appendChild(o)});if(!select.value&&select.options.length)select.selectedIndex=0;
 }
-function fillEditors(){ $('portfolioSortMode').value=cfg.portfolioSortMode||'latest'; $('scheduleJson').value=JSON.stringify(cfg.schedule||{},null,2); if(!$('scheduleDate').value)$('scheduleDate').value=new Date().toLocaleDateString('en-CA'); updateScheduleStatus();$('noticesIntro').value=cfg.noticesIntro||'';$('noticesJson').value=JSON.stringify(cfg.notices||[],null,2);$('pricesJson').value=JSON.stringify(cfg.prices||{},null,2);$('formJson').value=JSON.stringify(cfg.formLabels||{},null,2);renderCategories();renderPortfolio(); }
+
+/* ---------- 공지사항 · 견적 옵션 · 문의 양식: 글자를 눌러 바로 수정 ---------- */
+const DEF={"noticesIntro": "문의 전 공지사항을 반드시 확인해 주세요.", "notices": [{"title": "작업 및 저작권 관련 안내", "lines": ["모든 작업물의 저작권은 디자이너 키브(kive)에게 있습니다.", "2차 가공 및 재배포, AI 관련 학습, 디자인 카피에 해당하는 모든 부분은 금지합니다."]}, {"title": "작업 일정", "lines": ["작업 시작은 주문서 작성 및 입금 완료 확인 시 시작되며, 일정 카운트 시점 또한 동일합니다.", "작업물은 2주 내외로 작업이 완료되며, 수정 단계 후 최종 작업물이 전달됩니다."]}, {"title": "신청 시 유의사항", "lines": ["원하는 분위기 및 레퍼런스, 관련 이미지 전달 등은 반드시 작업 시작 전 전달해 주셔야 합니다.\n* 버츄얼 모델 이미지, 일러스트 그림 등 포함.", "작업 도중 전반적인 수정이 필요한 요청 시 추가 비용 발생."]}, {"title": "작업물 관련 공지", "lines": ["모든 작업물의 경우 작가의 포트폴리오로 사용될 수 있으며, 비공개의 경우 추가 비용이 발생합니다.\n*포트폴리오 공개 일정 조율 가능", "기본적으로 방송용 및 비상업적 용도 기준이며, 상업용은 기존 단가의 두 배 / 외주는 기존 단가의 세 배로 진행합니다.", "기존 협의된 용도 외의 사용은 금지되며 최종 작업물만 사용이 가능합니다.\n*초기 시안 및 수정 과정에서 나온 시안은 타인에게 공개가 불가능합니다."]}], "prices": {"base": [{"label": "일반 포스터", "price": 30000, "note": ""}, {"label": "RT 포스터", "price": 40000, "note": "기본 4장 제공(RT 공개용 + 최종 포스터)"}, {"label": "기본 스케줄표 [PSD 제공]", "price": 40000, "note": ""}, {"label": "PPT", "price": 50000, "note": "최대 10장"}, {"label": "다시보기 썸네일 [PSD 제공]", "price": 25000, "note": ""}, {"label": "치지직 배너", "price": 20000, "note": "기본 4개"}], "extra": [{"label": "PPT 추가금", "price": 5000, "note": "10장 이상, 장수 제한 X"}, {"label": "배너 1개 추가", "price": 5000, "note": ""}, {"label": "PSD 파일 구매", "price": 20000, "note": "기본 스케줄표, 다시보기 썸네일 제외 (기본 제공)"}, {"label": "포트폴리오 비공개", "price": 30000, "note": ""}], "purposes": [{"label": "방송용", "multiplier": 1}, {"label": "상업용", "multiplier": 2}, {"label": "외주용", "multiplier": 3}]}, "formLabels": {"nickname": {"label": "방송 닉네임", "placeholder": "방송 닉네임을 입력해 주세요."}, "channel": {"label": "방송 채널 주소", "placeholder": "방송 채널 주소를 입력해 주세요."}, "type": {"label": "신청 타입 종류", "placeholder": "신청하실 작업물의 종류를 입력해 주세요."}, "purpose": {"label": "사용 목적", "placeholder": ""}, "deadline": {"label": "희망 마감 날짜", "placeholder": ""}, "portfolioDate": {"label": "포트폴리오 공개 희망 날짜", "placeholder": ""}, "color": {"label": "메인 컬러", "placeholder": ""}, "mood": {"label": "원하는 분위기 및 디자인 요소", "placeholder": "원하는 분위기, 레퍼런스, 디자인 요소 등을 작성해 주세요."}, "text": {"label": "들어갈 문구 및 내용", "placeholder": "작업물에 들어갈 문구를 작성해 주세요."}, "reference": {"label": "모델 삼면도 및 참고 자료", "placeholder": "파일은 아트머그 문의창 내 파일 첨부로 첨부해 주세요."}, "extraRequest": {"label": "양식 외 추가 요청 사항", "placeholder": "추가 요청 사항이 있다면 작성해 주세요."}}};
+const FORM_KEYS=[['nickname','방송 닉네임',1],['channel','방송 채널 주소',1],['type','신청 타입 종류',1],['purpose','사용 목적',0],['deadline','희망 마감 날짜',0],['portfolioDate','포트폴리오 공개 희망 날짜',0],['color','메인 컬러',0],['mood','원하는 분위기 및 디자인 요소',1],['text','들어갈 문구 및 내용',1],['reference','모델 삼면도 및 참고 자료',1],['extraRequest','양식 외 추가 요청 사항',1]];
+const clone=o=>JSON.parse(JSON.stringify(o));
+const firstOf=(o,keys)=>{for(const k of keys){if(o&&o[k]!=null&&o[k]!=='')return o[k]}return undefined};
+function mkEl(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
+function fld(labelText,input){const w=mkEl('div');w.appendChild(mkEl('label',null,labelText));w.appendChild(input);return w}
+function autoH(t){t.style.height='auto';t.style.height=Math.max(84,t.scrollHeight+2)+'px'}
+function fitAll(){document.querySelectorAll('textarea[data-auto]').forEach(autoH)}
+function moveIn(arr,i,d,redraw){const j=i+d;if(j<0||j>=arr.length)return;const x=arr.splice(i,1)[0];arr.splice(j,0,x);redraw()}
+function actions(arr,i,redraw){
+  const box=mkEl('div','ed-actions');
+  const up=mkEl('button','secondary','↑ 위로');up.type='button';up.disabled=i===0;up.onclick=()=>moveIn(arr,i,-1,redraw);
+  const dn=mkEl('button','secondary','↓ 아래로');dn.type='button';dn.disabled=i===arr.length-1;dn.onclick=()=>moveIn(arr,i,1,redraw);
+  const del=mkEl('button','danger','삭제');del.type='button';del.onclick=()=>{if(!confirm('이 항목을 삭제할까요?'))return;arr.splice(i,1);redraw()};
+  box.append(up,dn,del);return box;
+}
+function ensureContent(){
+  if(!cfg.noticesIntro)cfg.noticesIntro=DEF.noticesIntro;
+  if(!Array.isArray(cfg.notices)||!cfg.notices.length)cfg.notices=clone(DEF.notices);
+  cfg.notices.forEach(n=>{
+    if(n.title==null)n.title=firstOf(n,['label','name'])||'';
+    if(!Array.isArray(n.lines))n.lines=typeof n.body==='string'?n.body.split(/\n\s*\n/):[];
+  });
+  const p=cfg.prices=(cfg.prices&&typeof cfg.prices==='object'&&!Array.isArray(cfg.prices))?cfg.prices:{};
+  ['base','extra','purposes'].forEach(k=>{if(!Array.isArray(p[k])||!p[k].length)p[k]=clone(DEF.prices[k])});
+  [...p.base,...p.extra].forEach(it=>{
+    if(it.label==null)it.label=firstOf(it,['name','title'])||'';
+    if(it.price==null)it.price=Number(firstOf(it,['amount']))||0;
+    if(it.note==null)it.note=firstOf(it,['description','desc'])||'';
+  });
+  p.purposes.forEach(it=>{
+    if(it.label==null)it.label=firstOf(it,['name','title'])||'';
+    if(it.multiplier==null)it.multiplier=Number(firstOf(it,['mult','value']))||1;
+  });
+  const f=cfg.formLabels=(cfg.formLabels&&typeof cfg.formLabels==='object'&&!Array.isArray(cfg.formLabels))?cfg.formLabels:{};
+  FORM_KEYS.forEach(([k])=>{
+    const d=DEF.formLabels[k];let e=f[k];
+    if(e==null)e=f[k]=clone(d);
+    else if(typeof e==='string')e=f[k]={label:e,placeholder:d.placeholder};
+    if(e.label==null)e.label=firstOf(e,['title','name'])||d.label;
+    if(e.placeholder==null)e.placeholder=firstOf(e,['hint'])||d.placeholder;
+  });
+}
+function renderNotices(){
+  const ni=$('noticesIntro');ni.value=cfg.noticesIntro||'';
+  const root=$('noticesList');root.innerHTML='';
+  cfg.notices.forEach((n,i)=>{
+    const box=mkEl('div','ed-item');
+    const t=mkEl('input');t.value=n.title||'';t.placeholder='예: 작업 일정';t.oninput=()=>{n.title=t.value};
+    const ta=mkEl('textarea');ta.setAttribute('data-auto','1');ta.value=(n.lines||[]).join('\n\n');
+    ta.oninput=()=>{n.lines=ta.value.split(/\n\s*\n/).map(s=>s.trim()).filter(Boolean);if('body' in n)delete n.body;autoH(ta)};
+    box.append(fld('공지 제목',t),fld('본문 (문단은 빈 줄로 구분 · 문단 안 줄바꿈은 Enter)',ta),actions(cfg.notices,i,renderNotices));
+    root.appendChild(box);
+  });
+  fitAll();
+}
+function renderPriceList(rootId,key,kind){
+  const root=$(rootId);root.innerHTML='';const arr=cfg.prices[key];
+  arr.forEach((it,i)=>{
+    const box=mkEl('div','ed-item'),g=mkEl('div','ed-grid');
+    const nm=mkEl('input');nm.value=it.label||'';nm.oninput=()=>{it.label=nm.value};
+    const pr=mkEl('input');pr.type='text';pr.inputMode='numeric';pr.value=it.price!=null?String(it.price):'';pr.oninput=()=>{it.price=Number(pr.value.replace(/[^0-9]/g,''))||0};
+    const nt=mkEl('input');nt.value=it.note||'';nt.placeholder='예: 최대 10장';nt.oninput=()=>{it.note=nt.value};
+    g.append(fld(kind==='extra'?'옵션 이름':'작업 이름',nm),fld(kind==='extra'?'추가 금액 (원)':'금액 (원)',pr));
+    box.append(g,fld('설명 (선택 · 이름 아래 작은 글씨)',nt),actions(arr,i,()=>renderPriceList(rootId,key,kind)));
+    root.appendChild(box);
+  });
+}
+function renderPurposes(){
+  const root=$('purposeList');root.innerHTML='';
+  cfg.prices.purposes.forEach(it=>{
+    const box=mkEl('div','ed-item'),g=mkEl('div','ed-grid');
+    const nm=mkEl('input');nm.value=it.label||'';nm.oninput=()=>{it.label=nm.value};
+    const mu=mkEl('input');mu.type='number';mu.step='0.5';mu.min='0';mu.value=it.multiplier;mu.oninput=()=>{it.multiplier=Number(mu.value)||1};
+    g.append(fld('용도 이름',nm),fld('금액 배수 (×)',mu));box.appendChild(g);root.appendChild(box);
+  });
+}
+function renderPrices(){renderPriceList('priceBaseList','base','base');renderPriceList('priceExtraList','extra','extra');renderPurposes()}
+function renderForm(){
+  const root=$('formList');root.innerHTML='';
+  FORM_KEYS.forEach(([k,name,hasPh])=>{
+    const e=cfg.formLabels[k];const box=mkEl('div','ed-item');
+    box.appendChild(mkEl('div','ed-tag',name+' 항목'));
+    const lb=mkEl('input');lb.value=e.label||'';lb.oninput=()=>{e.label=lb.value};
+    box.appendChild(fld('항목 이름',lb));
+    if(hasPh){const ph=mkEl('input');ph.value=e.placeholder||'';ph.oninput=()=>{e.placeholder=ph.value};box.appendChild(fld(k==='reference'?'안내 문구 (회색 박스 안 글자)':'입력창 안내 문구',ph))}
+    root.appendChild(box);
+  });
+}
+$('noticesIntro').oninput=()=>{if(cfg)cfg.noticesIntro=$('noticesIntro').value};
+$('addNotice').onclick=()=>{if(!cfg){note('먼저 GitHub 저장소에 연결해 주세요.');return}cfg.notices.push({title:'새 공지',lines:['내용을 입력해 주세요.']});renderNotices()};
+$('addBase').onclick=()=>{if(!cfg){note('먼저 GitHub 저장소에 연결해 주세요.');return}cfg.prices.base.push({label:'새 작업',price:0,note:''});renderPriceList('priceBaseList','base','base')};
+$('addExtra').onclick=()=>{if(!cfg){note('먼저 GitHub 저장소에 연결해 주세요.');return}cfg.prices.extra.push({label:'새 옵션',price:0,note:''});renderPriceList('priceExtraList','extra','extra')};
+function fillEditors(){ ensureContent(); $('scheduleJson').value=JSON.stringify(cfg.schedule||{},null,2); if(!$('scheduleDate').value)$('scheduleDate').value=new Date().toLocaleDateString('en-CA'); updateScheduleStatus(); renderNotices();renderPrices();renderForm();renderCategories();renderPortfolio(); }
 
 function syncScheduleEditor(){ $('scheduleJson').value=JSON.stringify(cfg.schedule||{},null,2); updateScheduleStatus(); }
 function updateScheduleStatus(){
@@ -56,18 +157,57 @@ $('clearScheduleDate').addEventListener('click',()=>{
 });
 $('saveScheduleUI').addEventListener('click',async()=>{try{note('일정 저장 중…');await saveConfig([]);note('일정 저장 완료! 공개 사이트 반영까지 1~2분 기다려 주세요.');}catch(e){note('일정 저장 실패: '+e.message);}});
 
+/* ---------- 포트폴리오: 카테고리별 순서 ---------- */
+let activeCat=null;
+const dateOf=p=>p.createdAt||p.uploadedAt||p.date||'';
+function latestCmp(a,b){const ad=dateOf(a.p),bd=dateOf(b.p);if(ad&&bd&&ad!==bd)return String(bd).localeCompare(String(ad));if(ad&&!bd)return -1;if(bd&&!ad)return 1;return b.i-a.i}
+function modeOf(cid){return (cfg.portfolioSortModes&&cfg.portfolioSortModes[cid])||cfg.portfolioSortMode||'latest'}
+function setMode(cid,m){const d=cfg.portfolioSortMode||'latest';cfg.portfolioSortModes=cfg.portfolioSortModes||{};(cfg.portfolioCategories||[]).forEach(c=>{if(!cfg.portfolioSortModes[c.id])cfg.portfolioSortModes[c.id]=d});cfg.portfolioSortModes[cid]=m}
+function catEntries(cid){
+  const known=new Set((cfg.portfolioCategories||[]).map(c=>c.id));
+  const arr=(cfg.portfolio||[]).map((p,i)=>({p,i})).filter(e=>cid==='__none'?!known.has(e.p.category):e.p.category===cid);
+  if(cid!=='__none'&&modeOf(cid)==='latest')arr.sort(latestCmp);
+  return arr;
+}
+function freezeLatest(cid){const sorted=catEntries(cid),slots=sorted.map(e=>e.i).sort((a,b)=>a-b),items=sorted.map(e=>e.p);slots.forEach((s,k)=>{cfg.portfolio[s]=items[k]})}
+function moveEntry(cid,k,to){
+  if(modeOf(cid)==='latest')freezeLatest(cid);
+  setMode(cid,'manual');
+  const e=catEntries(cid);
+  if(to>=0&&to<e.length&&to!==k){const slots=e.map(x=>x.i).sort((a,b)=>a-b),items=e.map(x=>x.p);const it=items.splice(k,1)[0];items.splice(to,0,it);slots.forEach((s,n)=>{cfg.portfolio[s]=items[n]})}
+  renderPortfolio();
+}
 function renderPortfolio(){
- const root=$('portfolioList');root.innerHTML='';
- (cfg.portfolio||[]).forEach((p,i)=>{
-  const d=document.createElement('div');d.className='item';
-  const img=document.createElement('img');img.src=(p.path||'').replace(/^\.\//,'../');img.alt=p.title||'';d.appendChild(img);
-  const title=document.createElement('input');title.value=p.title||'';title.placeholder='작업물 제목';title.addEventListener('change',()=>cfg.portfolio[i].title=title.value);d.appendChild(title);
-  const cat=document.createElement('select');(cfg.portfolioCategories||[]).forEach(c=>{const o=document.createElement('option');o.value=c.id;o.textContent=c.label;o.selected=c.id===p.category;cat.appendChild(o)});cat.addEventListener('change',()=>cfg.portfolio[i].category=cat.value);d.appendChild(cat);
-  const moves=document.createElement('div');moves.className='row';moves.style.marginTop='7px';
-  const up=document.createElement('button');up.className='secondary';up.textContent='↑ 위로';up.disabled=i===0;up.onclick=()=>{const a=cfg.portfolio.splice(i,1)[0];cfg.portfolio.splice(i-1,0,a);$('portfolioSortMode').value='manual';cfg.portfolioSortMode='manual';renderPortfolio()};moves.appendChild(up);
-  const down=document.createElement('button');down.className='secondary';down.textContent='↓ 아래로';down.disabled=i===cfg.portfolio.length-1;down.onclick=()=>{const a=cfg.portfolio.splice(i,1)[0];cfg.portfolio.splice(i+1,0,a);$('portfolioSortMode').value='manual';cfg.portfolioSortMode='manual';renderPortfolio()};moves.appendChild(down);d.appendChild(moves);
-  const del=document.createElement('button');del.className='danger';del.style.width='100%';del.style.marginTop='7px';del.textContent='목록에서 제거';del.onclick=()=>{cfg.portfolio.splice(i,1);renderPortfolio()};d.appendChild(del);root.appendChild(d)
- });
+  const cats=cfg.portfolioCategories||[],known=new Set(cats.map(c=>c.id));
+  const tabs=cats.map(c=>({id:c.id,label:c.label||c.id}));
+  if((cfg.portfolio||[]).some(p=>!known.has(p.category)))tabs.push({id:'__none',label:'미분류'});
+  if(!tabs.some(t=>t.id===activeCat))activeCat=tabs.length?tabs[0].id:null;
+  const tb=$('portfolioTabs');tb.innerHTML='';
+  tabs.forEach(t=>{const b=mkEl('button',t.id===activeCat?'active':'',t.label+' ('+catEntries(t.id).length+')');b.type='button';b.onclick=()=>{activeCat=t.id;renderPortfolio()};tb.appendChild(b)});
+  const orphan=activeCat==='__none';
+  const sm=$('portfolioSortMode');sm.disabled=!activeCat||orphan;sm.value=(activeCat&&!orphan)?modeOf(activeCat):'latest';
+  const root=$('portfolioList');root.innerHTML='';
+  if(!activeCat){const h=mkEl('p','hint','카테고리를 먼저 추가해 주세요.');h.style.gridColumn='1/-1';root.appendChild(h);return}
+  const list=catEntries(activeCat);
+  if(!list.length){const h=mkEl('p','hint','이 카테고리에는 아직 작품이 없어요.');h.style.gridColumn='1/-1';root.appendChild(h);return}
+  list.forEach((e,k)=>{
+   const p=e.p,idx=e.i;
+   const d=document.createElement('div');d.className='item';
+   const img=document.createElement('img');img.src=(p.path||'').replace(/^\.\//,'../');img.alt=p.title||'';d.appendChild(img);
+   d.appendChild(mkEl('div','tiny hint',(k+1)+'번째'));
+   const title=document.createElement('input');title.value=p.title||'';title.placeholder='작업물 제목';title.addEventListener('change',()=>{cfg.portfolio[idx].title=title.value});d.appendChild(title);
+   const cat=document.createElement('select');
+   if(orphan){const o=document.createElement('option');o.value='';o.textContent='분류 선택';o.selected=true;cat.appendChild(o)}
+   cats.forEach(c=>{const o=document.createElement('option');o.value=c.id;o.textContent=c.label;o.selected=c.id===p.category;cat.appendChild(o)});
+   cat.addEventListener('change',()=>{if(!cat.value)return;cfg.portfolio[idx].category=cat.value;renderPortfolio()});d.appendChild(cat);
+   const moves=document.createElement('div');moves.className='row';moves.style.marginTop='7px';
+   const mv=(txt,to,dis)=>{const b=document.createElement('button');b.type='button';b.className='secondary';b.textContent=txt;b.disabled=orphan||dis;b.onclick=()=>moveEntry(activeCat,k,to);return b};
+   moves.appendChild(mv('↑ 위로',k-1,k===0));moves.appendChild(mv('↓ 아래로',k+1,k===list.length-1));
+   moves.appendChild(mv('맨 위로',0,k===0));moves.appendChild(mv('맨 아래로',list.length-1,k===list.length-1));
+   d.appendChild(moves);
+   const del=document.createElement('button');del.type='button';del.className='danger';del.style.width='100%';del.style.marginTop='7px';del.textContent='목록에서 제거';del.onclick=()=>{cfg.portfolio.splice(idx,1);renderPortfolio()};d.appendChild(del);
+   root.appendChild(d);
+  });
 }
 
 $('addCategory').onclick=()=>{const label=$('newCategoryLabel').value.trim();if(!label){note('추가할 카테고리 이름을 입력해 주세요.');return;}if((cfg.portfolioCategories||[]).some(c=>String(c.label).toLowerCase()===label.toLowerCase())){note('같은 이름의 카테고리가 이미 있습니다.');return;}let id=categoryIdFromLabel(label);const used=new Set((cfg.portfolioCategories||[]).map(c=>c.id));let base=id,n=2;while(used.has(id))id=base+'-'+n++;cfg.portfolioCategories=cfg.portfolioCategories||[];cfg.portfolioCategories.push({id,label,panel:'kive-cat-'+id});$('newCategoryLabel').value='';renderCategories();renderPortfolio();note('카테고리를 추가했어요. 공개 페이지 반영을 위해 카테고리 변경 저장을 눌러 주세요.');};
@@ -104,8 +244,8 @@ async function putFile(path,content,message,encoding='utf-8'){
   return result;
 }
 function base64Unicode(s){const bytes=new TextEncoder().encode(s);let bin='';bytes.forEach(b=>bin+=String.fromCharCode(b));return btoa(bin)}
-async function saveConfig(keys){if(configSaveInProgress)throw Error('이미 저장 중이에요. 잠시 기다린 뒤 다시 시도해 주세요.');if(!connected)throw Error('먼저 GitHub 저장소에 연결해 주세요.');configSaveInProgress=true;const controls=[...document.querySelectorAll('[data-save]'),$('saveAll'),$('savePortfolioOrder'),$('uploadImages')];controls.forEach(b=>{if(b)b.disabled=true});try{cfg.portfolioSortMode=$('portfolioSortMode').value||'latest';if(keys.includes('schedule'))parseEditor('scheduleJson','schedule');if(keys.includes('notices')){cfg.noticesIntro=$('noticesIntro').value;parseEditor('noticesJson','notices')}if(keys.includes('prices'))parseEditor('pricesJson','prices');if(keys.includes('formLabels'))parseEditor('formJson','formLabels');const result=await putFile('site-data.json',base64Unicode(JSON.stringify(cfg,null,2)),'KIVE 사이트 설정 업데이트');sha=result.content&&result.content.sha;note('저장 완료! GitHub Pages 반영까지 1~2분 기다려 주세요.')}finally{configSaveInProgress=false;controls.forEach(b=>{if(b)b.disabled=false})}}
-$('savePortfolioOrder').onclick=async()=>{try{cfg.portfolioSortMode=$('portfolioSortMode').value;note('포트폴리오 순서 저장 중…');await saveConfig([])}catch(e){note('저장 실패: '+e.message)}};$('portfolioSortMode').onchange=()=>{cfg.portfolioSortMode=$('portfolioSortMode').value;};$('connect').onclick=connect;$('forget').onclick=()=>{$('token').value='';token='';connected=false;conn('토큰을 지웠습니다.')};document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id==='panel-'+b.dataset.tab))});document.querySelectorAll('[data-save]').forEach(b=>b.onclick=async()=>{try{note('저장 중…');await saveConfig([b.dataset.save])}catch(e){note('저장 실패: '+e.message)}});$('saveAll').onclick=async()=>{try{note('전체 저장 중…');await saveConfig(['schedule','notices','prices','formLabels'])}catch(e){note('저장 실패: '+e.message)}};
+async function saveConfig(keys){if(configSaveInProgress)throw Error('이미 저장 중이에요. 잠시 기다린 뒤 다시 시도해 주세요.');if(!connected)throw Error('먼저 GitHub 저장소에 연결해 주세요.');configSaveInProgress=true;const controls=[...document.querySelectorAll('[data-save]'),$('saveAll'),$('savePortfolioOrder'),$('uploadImages')];controls.forEach(b=>{if(b)b.disabled=true});try{if(keys.includes('schedule'))parseEditor('scheduleJson','schedule');const result=await putFile('site-data.json',base64Unicode(JSON.stringify(cfg,null,2)),'KIVE 사이트 설정 업데이트');sha=result.content&&result.content.sha;note('저장 완료! GitHub Pages 반영까지 1~2분 기다려 주세요.')}finally{configSaveInProgress=false;controls.forEach(b=>{if(b)b.disabled=false})}}
+$('savePortfolioOrder').onclick=async()=>{try{note('포트폴리오 순서 저장 중…');await saveConfig([]);note('포트폴리오 순서 저장 완료! 공개 사이트 반영까지 1~2분 기다려 주세요.')}catch(e){note('저장 실패: '+e.message)}};$('portfolioSortMode').onchange=()=>{if(!cfg||!activeCat||activeCat==='__none')return;const v=$('portfolioSortMode').value;if(v==='manual'&&modeOf(activeCat)==='latest')freezeLatest(activeCat);setMode(activeCat,v);renderPortfolio();};$('connect').onclick=connect;$('forget').onclick=()=>{$('token').value='';token='';connected=false;conn('토큰을 지웠습니다.')};document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id==='panel-'+b.dataset.tab));fitAll()});document.querySelectorAll('[data-save]').forEach(b=>b.onclick=async()=>{try{note('저장 중…');await saveConfig([b.dataset.save])}catch(e){note('저장 실패: '+e.message)}});$('saveAll').onclick=async()=>{try{note('전체 저장 중…');await saveConfig(['schedule','notices','prices','formLabels'])}catch(e){note('저장 실패: '+e.message)}};
 $('uploadImages').onclick=async()=>{
   let uploadedPaths=[];
   try{
@@ -126,7 +266,7 @@ $('uploadImages').onclick=async()=>{
       uploadedPaths.push(path);
       cfg.portfolio.unshift({category:$('uploadCategory').value,title:f.name.replace(/\.[^.]+$/,''),path:'./'+path,createdAt:new Date().toISOString()});
     }
-    renderPortfolio();
+    activeCat=$('uploadCategory').value;renderPortfolio();
     note('이미지 파일 '+uploadedPaths.length+'개 저장 확인 완료. 목록(site-data.json) 저장 중…');
     await saveConfig([]);
     $('images').value='';
