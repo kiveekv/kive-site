@@ -596,8 +596,31 @@ function copyForm(){
   var v=function(id){var e=q('#'+id);if(!e)return '';var x=('value' in e)?e.value:e.innerText;x=(x||'').trim();return x===(e.getAttribute('data-placeholder')||'').trim()?'':x};
   var p=q('input[name=form-purpose]:checked'),c=qa('#kiveColors .kive-color-item:not(.kive-spare) .kive-color-input').map(function(i){return i.value});
   var g=function(i){var o=q('#'+i);return o?o.textContent.trim():'-'};
-  var lb=function(id,d){var e=q('#'+id),f=e&&e.closest('.kive-field'),l=f&&f.querySelector('.kive-label');return l&&l.textContent.trim()?l.textContent.trim():d};var L=function(k,x){return k+'\n'+(x||'-')};
-  var t=['[KIVE 문의 양식]',L(lb('kiveNickname','방송 닉네임'),v('kiveNickname')),L(lb('kiveChannel','방송 채널 주소'),v('kiveChannel')),L(lb('kiveType','신청 타입 종류'),v('kiveType')),L('선택한 견적','기본 작업: '+g('kiveBaseName')+'\n추가 옵션: '+g('kiveExtraNames')+'\n사용 목적 배수: '+g('kivePurposeText')+'\n예상 금액: '+g('kiveTotal')),L('사용 목적',p&&p.value),L(lb('kiveDeadline','희망 마감 날짜'),v('kiveDeadline')),L(lb('kivePortfolioDate','포트폴리오 공개 희망 날짜'),v('kivePortfolioDate')),L(lb('kiveMood','원하는 분위기 및 디자인 요소'),v('kiveMood')),L('메인 컬러',c.join(', ')),L(lb('kiveText','들어갈 문구 및 내용'),v('kiveText')),'모델 삼면도 및 참고 자료\n파일은 아트머그 문의창 내 파일 첨부로 첨부해 주세요.',L(lb('kiveExtraRequest','양식 외 추가 요청 사항'),v('kiveExtraRequest'))].join('\n\n');
+  var L=function(k,x){return k+'\n'+(x||'-')};
+  var lb=function(id,d){var e=q('#'+id),f=e&&e.closest('.kive-field'),l=f&&f.querySelector('.kive-label');return l&&l.textContent.trim()?l.textContent.trim():d};
+  var lk=function(k,d){var f=q('.kive-form > [data-fkey="'+k+'"]'),l=f&&f.querySelector('.kive-label');return l&&l.textContent.trim()?l.textContent.trim():d};
+  var ref=q('.kive-form > [data-fkey="reference"] .kive-input');
+  var B={
+    nickname:L(lb('kiveNickname','방송 닉네임'),v('kiveNickname')),
+    channel:L(lb('kiveChannel','방송 채널 주소'),v('kiveChannel')),
+    type:L(lb('kiveType','신청 타입 종류'),v('kiveType'))+'\n\n'+L('선택한 견적','기본 작업: '+g('kiveBaseName')+'\n추가 옵션: '+g('kiveExtraNames')+'\n사용 목적 배수: '+g('kivePurposeText')+'\n예상 금액: '+g('kiveTotal')),
+    purpose:L(lk('purpose','사용 목적'),p&&p.value),
+    deadline:L(lb('kiveDeadline','희망 마감 날짜'),v('kiveDeadline')),
+    portfolioDate:L(lb('kivePortfolioDate','포트폴리오 공개 희망 날짜'),v('kivePortfolioDate')),
+    mood:L(lb('kiveMood','원하는 분위기 및 디자인 요소'),v('kiveMood')),
+    color:L(lk('color','메인 컬러'),c.join(', ')),
+    text:L(lb('kiveText','들어갈 문구 및 내용'),v('kiveText')),
+    reference:lk('reference','모델 삼면도 및 참고 자료')+'\n'+(ref&&ref.textContent.trim()?ref.textContent.trim():'파일은 아트머그 문의창 내 파일 첨부로 첨부해 주세요.'),
+    extraRequest:L(lb('kiveExtraRequest','양식 외 추가 요청 사항'),v('kiveExtraRequest'))
+  };
+  var keys=qa('.kive-form > .kive-field').map(function(f){return f.getAttribute('data-fkey')}).filter(function(k){return k&&k!=='__copy'});
+  if(!keys.length)keys=['nickname','channel','type','purpose','deadline','portfolioDate','color','mood','text','reference','extraRequest'];
+  var parts=['[KIVE 문의 양식]'];
+  keys.forEach(function(k){
+    if(B[k]!=null)parts.push(B[k]);
+    else if(/^x:/.test(k)){var f=q('.kive-form > [data-fkey="'+k+'"]'),e=f&&f.querySelector('[data-placeholder]'),l=f&&f.querySelector('.kive-label');parts.push(L(l?l.textContent.trim():'추가 항목',e?v(e.id):''))}
+  });
+  var t=parts.join('\n\n');
   copyBox(t);
 }
 
@@ -1125,13 +1148,52 @@ if(/[?&]h(=|&|$)/.test(location.search)){
     });
   }
 
+  function tagForm(){
+    var fields=root.querySelectorAll('.kive-form > .kive-field');
+    FORM_KEYS.forEach(function(k,i){if(fields[i])fields[i].setAttribute('data-fkey',k)});
+    var last=fields[fields.length-1];
+    if(last&&last.querySelector('.kive-copy-area'))last.setAttribute('data-fkey','__copy');
+  }
+  function applyFormOrder(data){
+    var order=Array.isArray(data.formOrder)?data.formOrder:null;
+    var form=root.querySelector('.kive-form');
+    if(!order||!form)return;
+    var copy=form.querySelector('.kive-copy-area');copy=copy&&copy.closest('.kive-field');
+    if(!copy)return;
+    var map={};
+    form.querySelectorAll(':scope > .kive-field').forEach(function(f){var k=f.getAttribute('data-fkey');if(k)map[k]=f});
+    var used={};
+    order.forEach(function(k){var f=map[k];if(f&&!used[k]){used[k]=1;form.insertBefore(f,copy)}});
+  }
+  function applyFormExtra(data){
+    var list=(Array.isArray(data.formExtra)?data.formExtra:[]).filter(function(x){return x&&String(x.label||'').trim()});
+    var fields=root.querySelectorAll('.kive-form > .kive-field');
+    var anchor=fields[10];
+    if(!list.length||!anchor||!fields[0]||!fields[7])return;
+    root.querySelectorAll('.kive-extra-field').forEach(function(e){e.parentNode.removeChild(e)});
+    list.forEach(function(x,i){
+      var long=x.type==='long',f=(long?fields[7]:fields[0]).cloneNode(true);
+      f.classList.add('kive-extra-field');f.setAttribute('data-fkey','x:'+(x.id||i));
+      var lb=f.querySelector('.kive-label');if(lb)lb.textContent=String(x.label).trim();
+      var el=f.querySelector('[data-placeholder]');
+      if(el){
+        var ph=String(x.placeholder||'').trim()||'내용을 입력해 주세요.';
+        el.id='kiveExtraField'+i;el.setAttribute('data-placeholder',ph);el.innerText=ph;el.style.color='#95858B';
+      }
+      anchor.parentNode.insertBefore(f,anchor);
+    });
+  }
+
   function load(){
+    try{tagForm()}catch(e){}
     fetch('./site-data.json?content='+Date.now(),{cache:'no-store'})
       .then(function(r){if(!r.ok)throw new Error('site-data.json unavailable');return r.json()})
       .then(function(data){
         try{applyNotices(data)}catch(e){}
         try{applyPrices(data)}catch(e){}
         try{applyForm(data)}catch(e){}
+        try{applyFormExtra(data)}catch(e){}
+        try{applyFormOrder(data)}catch(e){}
       })
       .catch(function(){/* 데이터가 없으면 기본 문구 그대로 */});
   }
