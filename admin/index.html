@@ -15,9 +15,9 @@
 <div class="row"><div><label>이 카테고리의 공개 사이트 정렬 방식</label><select id="portfolioSortMode"><option value="latest">최신순 (기본)</option><option value="manual">직접 정렬한 순서</option></select></div></div>
 <div style="margin-top:12px"><button id="savePortfolioOrder" class="secondary">포트폴리오 순서 저장</button></div><div id="portfolioList" class="preview"></div></section>
 <section class="card panel" id="panel-schedule"><h2>작업 일정</h2><p class="hint">날짜를 선택한 뒤 상태를 고르고 적용하세요. 적용한 변경은 아래 저장 버튼을 눌러야 공개 사이트에 반영됩니다.</p><div class="row"><div><label for="scheduleDate">날짜 선택</label><input id="scheduleDate" type="date"></div><div><label for="scheduleStatus">작업 상태</label><select id="scheduleStatus"><option value="available">작업 가능</option><option value="off">휴무</option><option value="closed">마감</option></select></div><div style="display:flex;align-items:end"><button id="applyScheduleStatus" type="button">선택한 날짜에 적용</button></div></div><div id="scheduleCurrentStatus" class="status">날짜를 선택하면 해당 날짜의 현재 상태가 표시됩니다.</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button id="saveScheduleUI" type="button">일정 저장</button><button id="clearScheduleDate" type="button" class="secondary">선택 날짜 상태 지우기</button></div><details style="margin-top:16px"><summary style="cursor:pointer;font-weight:750;color:var(--wine)">고급 설정: 일정 데이터(JSON)</summary><p class="hint">필요한 경우에만 직접 수정하세요. 날짜 형식은 YYYY-MM-DD, 상태는 available(가능), closed(마감), off(휴무)입니다.</p><label>날짜별 일정 데이터</label><textarea id="scheduleJson" spellcheck="false"></textarea><button data-save="schedule">JSON 일정 저장</button></details></section>
-<section class="card panel" id="panel-notices"><h2>공지사항</h2><p class="hint">글자를 눌러 바로 수정하세요. 현재 공개 페이지의 문구가 처음부터 채워져 있고, 수정한 내용은 저장 버튼을 눌러야 공개 사이트에 반영됩니다. 본문은 문단을 빈 줄로 나누고, 문단 안에서 줄을 바꾸려면 Enter를 누르세요.</p><label>상단 안내 문구</label><input id="noticesIntro"><h3>공지 목록</h3><div id="noticesList" class="ed-list"></div><div class="ed-actions"><button id="addNotice" type="button" class="secondary">+ 공지 항목 추가</button></div><div style="margin-top:14px"><button data-save="notices">공지 저장</button></div></section>
-<section class="card panel" id="panel-prices"><h2>견적 옵션</h2><p class="hint">글자와 금액을 눌러 바로 수정하세요. 기본 작업과 추가 옵션은 방문자가 여러 개를 중복해서 선택할 수 있어요. 수정한 내용은 저장 버튼을 눌러야 공개 사이트에 반영됩니다.</p><h3>기본 작업</h3><div id="priceBaseList" class="ed-list"></div><div class="ed-actions"><button id="addBase" type="button" class="secondary">+ 기본 작업 추가</button></div><h3>추가 옵션</h3><div id="priceExtraList" class="ed-list"></div><div class="ed-actions"><button id="addExtra" type="button" class="secondary">+ 추가 옵션 추가</button></div><h3>사용 목적 (금액 배수)</h3><p class="hint">용도 이름과 배수를 수정할 수 있어요. 용도는 3개로 고정이고, 문의 양식의 사용 목적 버튼에도 함께 반영됩니다.</p><div id="purposeList" class="ed-list"></div><div style="margin-top:14px"><button data-save="prices">견적 저장</button></div></section>
-<section class="card panel" id="panel-form"><h2>문의 양식</h2><p class="hint">항목 이름과 입력창 안내 문구를 눌러 바로 수정하세요. 수정한 내용은 저장 버튼을 눌러야 공개 사이트에 반영됩니다.</p><div id="formList" class="ed-list"></div><div style="margin-top:14px"><button data-save="formLabels">문의 양식 저장</button></div></section>
+<section class="card panel" id="panel-notices"><h2>공지사항</h2><p class="hint">글자를 눌러 바로 수정하세요. 현재 공개 페이지의 문구가 처음부터 채워져 있고, 수정한 내용은 GitHub 연결 후 저장 버튼을 눌러야 공개 사이트에 반영됩니다. 본문은 문단을 빈 줄로 나누고, 문단 안에서 줄을 바꾸려면 Enter를 누르세요.</p><label>상단 안내 문구</label><input id="noticesIntro"><h3>공지 목록</h3><div id="noticesList" class="ed-list"></div><div class="ed-actions"><button id="addNotice" type="button" class="secondary">+ 공지 항목 추가</button><button id="resetNotices" type="button" class="secondary">현재 공개 페이지 문구로 되돌리기</button></div><div style="margin-top:14px"><button data-save="notices">공지 저장</button></div></section>
+<section class="card panel" id="panel-prices"><h2>견적 옵션</h2><p class="hint">글자와 금액을 눌러 바로 수정하세요. 기본 작업과 추가 옵션은 방문자가 여러 개를 중복해서 선택할 수 있어요. 수정한 내용은 저장 버튼을 눌러야 공개 사이트에 반영됩니다.</p><h3>기본 작업</h3><div id="priceBaseList" class="ed-list"></div><div class="ed-actions"><button id="addBase" type="button" class="secondary">+ 기본 작업 추가</button></div><h3>추가 옵션</h3><div id="priceExtraList" class="ed-list"></div><div class="ed-actions"><button id="addExtra" type="button" class="secondary">+ 추가 옵션 추가</button></div><h3>사용 목적 (금액 배수)</h3><p class="hint">용도 이름과 배수를 수정할 수 있어요. 용도는 3개로 고정이고, 문의 양식의 사용 목적 버튼에도 함께 반영됩니다.</p><div id="purposeList" class="ed-list"></div><div class="ed-actions"><button id="resetPrices" type="button" class="secondary">현재 공개 페이지 견적으로 되돌리기</button></div><div style="margin-top:14px"><button data-save="prices">견적 저장</button></div></section>
+<section class="card panel" id="panel-form"><h2>문의 양식</h2><p class="hint">항목 이름과 입력창 안내 문구를 눌러 바로 수정하세요. 수정한 내용은 저장 버튼을 눌러야 공개 사이트에 반영됩니다.</p><p class="hint" style="margin-top:-6px">↑ ↓ 버튼으로 문의 양식에 보이는 순서를 바꿀 수 있어요. 새 질문을 추가하면 목록 맨 아래에 생기고, 복사되는 문의 내용도 이 순서를 따라가요.</p><div id="formList" class="ed-list"></div><div class="ed-actions"><button id="addFormExtra" type="button" class="secondary">+ 문의 항목 추가</button><button id="resetForm" type="button" class="secondary">기본 문구로 되돌리기</button></div><div style="margin-top:14px"><button data-save="formLabels">문의 양식 저장</button></div></section>
 <section class="card"><div class="row"><div><h2>저장 및 배포</h2><p class="hint">저장 시 site-data.json에 커밋됩니다. GitHub Pages가 자동으로 다시 배포하며 반영까지 1~2분 걸릴 수 있습니다.</p></div><div style="display:flex;align-items:center;justify-content:flex-end"><button id="saveAll">변경 사항 전체 저장</button></div></div><div id="status" class="status">저장소 연결 후 데이터를 수정하세요.</div></section>
 </main><script>
 const $=id=>document.getElementById(id);let cfg=null,token='',connected=false,sha=null;const api='https://api.github.com';
@@ -60,6 +60,8 @@ function actions(arr,i,redraw){
 }
 function ensureContent(){
   if(!cfg.noticesIntro)cfg.noticesIntro=DEF.noticesIntro;
+  if(!Array.isArray(cfg.formExtra))cfg.formExtra=[];
+  cfg.formExtra.forEach(x=>{if(!x.id)x.id='x'+Date.now().toString(36)+Math.random().toString(36).slice(2,6)});
   if(!Array.isArray(cfg.notices)||!cfg.notices.length)cfg.notices=clone(DEF.notices);
   cfg.notices.forEach(n=>{
     if(n.title==null)n.title=firstOf(n,['label','name'])||'';
@@ -84,6 +86,13 @@ function ensureContent(){
     if(e.label==null)e.label=firstOf(e,['title','name'])||d.label;
     if(e.placeholder==null)e.placeholder=firstOf(e,['hint'])||d.placeholder;
   });
+}
+function normFormOrder(){
+  const base=FORM_KEYS.map(k=>k[0]),ex=cfg.formExtra.map(x=>'x:'+x.id),valid=new Set(base.concat(ex));
+  let o=Array.isArray(cfg.formOrder)?cfg.formOrder.filter((k,i,a)=>valid.has(k)&&a.indexOf(k)===i):null;
+  if(!o){o=base.slice();const at=o.indexOf('extraRequest');o.splice(at<0?o.length:at,0,...ex)}
+  else{base.concat(ex).forEach(k=>{if(!o.includes(k))o.push(k)})}
+  cfg.formOrder=o;
 }
 function renderNotices(){
   const ni=$('noticesIntro');ni.value=cfg.noticesIntro||'';
@@ -121,20 +130,52 @@ function renderPurposes(){
 }
 function renderPrices(){renderPriceList('priceBaseList','base','base');renderPriceList('priceExtraList','extra','extra');renderPurposes()}
 function renderForm(){
+  normFormOrder();
   const root=$('formList');root.innerHTML='';
-  FORM_KEYS.forEach(([k,name,hasPh])=>{
-    const e=cfg.formLabels[k];const box=mkEl('div','ed-item');
-    box.appendChild(mkEl('div','ed-tag',name+' 항목'));
-    const lb=mkEl('input');lb.value=e.label||'';lb.oninput=()=>{e.label=lb.value};
-    box.appendChild(fld('항목 이름',lb));
-    if(hasPh){const ph=mkEl('input');ph.value=e.placeholder||'';ph.oninput=()=>{e.placeholder=ph.value};box.appendChild(fld(k==='reference'?'안내 문구 (회색 박스 안 글자)':'입력창 안내 문구',ph))}
+  const order=cfg.formOrder;
+  order.forEach((tok,i)=>{
+    const box=mkEl('div','ed-item');
+    const redraw=()=>renderForm();
+    if(tok.startsWith('x:')){
+      const idx=cfg.formExtra.findIndex(x=>'x:'+x.id===tok);if(idx<0)return;const x=cfg.formExtra[idx];
+      box.appendChild(mkEl('div','ed-tag','추가한 항목'));
+      const g=mkEl('div','ed-grid');
+      const lb=mkEl('input');lb.value=x.label||'';lb.placeholder='예: 희망 크기';lb.oninput=()=>{x.label=lb.value};
+      const ty=mkEl('select');[['short','한 줄 입력'],['long','여러 줄 입력']].forEach(([v,t])=>{const o=mkEl('option',null,t);o.value=v;o.selected=(x.type||'short')===v;ty.appendChild(o)});ty.onchange=()=>{x.type=ty.value};
+      g.append(fld('항목 이름',lb),fld('입력 방식',ty));
+      const ph=mkEl('input');ph.value=x.placeholder||'';ph.placeholder='입력창 안에 보일 안내 문구';ph.oninput=()=>{x.placeholder=ph.value};
+      box.append(g,fld('입력창 안내 문구',ph));
+      const act=orderActions(order,i,redraw);
+      const del=mkEl('button','danger','삭제');del.type='button';del.onclick=()=>{if(!confirm('이 문의 항목을 삭제할까요?'))return;cfg.formExtra.splice(idx,1);cfg.formOrder=cfg.formOrder.filter(k=>k!==tok);renderForm()};
+      act.appendChild(del);box.appendChild(act);
+    }else{
+      const row=FORM_KEYS.find(r=>r[0]===tok);if(!row)return;
+      const [k,name,hasPh]=row;const e=cfg.formLabels[k];
+      box.appendChild(mkEl('div','ed-tag',name+' 항목'));
+      const lb=mkEl('input');lb.value=e.label||'';lb.oninput=()=>{e.label=lb.value};
+      box.appendChild(fld('항목 이름',lb));
+      if(hasPh){const ph=mkEl('input');ph.value=e.placeholder||'';ph.oninput=()=>{e.placeholder=ph.value};box.appendChild(fld(k==='reference'?'안내 문구 (회색 박스 안 글자)':'입력창 안내 문구',ph))}
+      box.appendChild(orderActions(order,i,redraw));
+    }
     root.appendChild(box);
   });
+}
+function orderActions(arr,i,redraw){
+  const box=mkEl('div','ed-actions');
+  const up=mkEl('button','secondary','↑ 위로');up.type='button';up.disabled=i===0;up.onclick=()=>moveIn(arr,i,-1,redraw);
+  const dn=mkEl('button','secondary','↓ 아래로');dn.type='button';dn.disabled=i===arr.length-1;dn.onclick=()=>moveIn(arr,i,1,redraw);
+  box.append(up,dn);return box;
 }
 $('noticesIntro').oninput=()=>{if(cfg)cfg.noticesIntro=$('noticesIntro').value};
 $('addNotice').onclick=()=>{if(!cfg){note('먼저 GitHub 저장소에 연결해 주세요.');return}cfg.notices.push({title:'새 공지',lines:['내용을 입력해 주세요.']});renderNotices()};
 $('addBase').onclick=()=>{if(!cfg){note('먼저 GitHub 저장소에 연결해 주세요.');return}cfg.prices.base.push({label:'새 작업',price:0,note:''});renderPriceList('priceBaseList','base','base')};
 $('addExtra').onclick=()=>{if(!cfg){note('먼저 GitHub 저장소에 연결해 주세요.');return}cfg.prices.extra.push({label:'새 옵션',price:0,note:''});renderPriceList('priceExtraList','extra','extra')};
+$('addFormExtra').onclick=()=>{if(!cfg){note('먼저 GitHub 저장소에 연결해 주세요.');return}const id='x'+Date.now().toString(36);cfg.formExtra.push({id,label:'새 항목',placeholder:'',type:'short'});normFormOrder();renderForm()};
+$('resetNotices').onclick=()=>{if(!confirm('공지사항을 현재 공개 페이지의 기본 문구로 되돌릴까요? 지금 수정한 내용은 사라져요.'))return;cfg.noticesIntro=DEF.noticesIntro;cfg.notices=clone(DEF.notices);renderNotices()};
+$('resetPrices').onclick=()=>{if(!confirm('견적 옵션을 현재 공개 페이지의 기본 내용으로 되돌릴까요? 지금 수정한 내용은 사라져요.'))return;cfg.prices=clone(DEF.prices);ensureContent();renderPrices()};
+$('resetForm').onclick=()=>{if(!confirm('문의 양식 문구를 기본으로 되돌릴까요? 추가한 항목도 모두 사라져요.'))return;cfg.formLabels=clone(DEF.formLabels);cfg.formExtra=[];cfg.formOrder=null;ensureContent();renderForm()};
+let contentDirty=false;
+['panel-notices','panel-prices','panel-form'].forEach(id=>{const p=$(id);p.addEventListener('input',()=>{contentDirty=true});p.addEventListener('click',e=>{if(e.target.closest('.ed-actions button, .ed-item button'))contentDirty=true})});
 function fillEditors(){ ensureContent(); $('scheduleJson').value=JSON.stringify(cfg.schedule||{},null,2); if(!$('scheduleDate').value)$('scheduleDate').value=new Date().toLocaleDateString('en-CA'); updateScheduleStatus(); renderNotices();renderPrices();renderForm();renderCategories();renderPortfolio(); }
 
 function syncScheduleEditor(){ $('scheduleJson').value=JSON.stringify(cfg.schedule||{},null,2); updateScheduleStatus(); }
@@ -212,7 +253,7 @@ function renderPortfolio(){
 
 $('addCategory').onclick=()=>{const label=$('newCategoryLabel').value.trim();if(!label){note('추가할 카테고리 이름을 입력해 주세요.');return;}if((cfg.portfolioCategories||[]).some(c=>String(c.label).toLowerCase()===label.toLowerCase())){note('같은 이름의 카테고리가 이미 있습니다.');return;}let id=categoryIdFromLabel(label);const used=new Set((cfg.portfolioCategories||[]).map(c=>c.id));let base=id,n=2;while(used.has(id))id=base+'-'+n++;cfg.portfolioCategories=cfg.portfolioCategories||[];cfg.portfolioCategories.push({id,label,panel:'kive-cat-'+id});$('newCategoryLabel').value='';renderCategories();renderPortfolio();note('카테고리를 추가했어요. 공개 페이지 반영을 위해 카테고리 변경 저장을 눌러 주세요.');};
 $('saveCategories').onclick=async()=>{try{note('카테고리 변경 저장 중…');await saveConfig([]);note('카테고리 변경 저장 완료! 공개 페이지 반영까지 1~2분 기다려 주세요.');}catch(e){note('카테고리 저장 실패: '+e.message)}};
-async function connect(){try{auth();conn('연결 확인 중…');await request(api+repoPath(),{headers:auth()});await readConfig();fillEditors();connected=true;conn('연결 완료 · '+$('owner').value+'/'+$('repo').value);note('설정을 불러왔습니다. 수정 후 각 저장 버튼 또는 전체 저장을 누르세요.')}catch(e){connected=false;conn('연결 실패: '+e.message)}}
+async function connect(){try{auth();conn('연결 확인 중…');await request(api+repoPath(),{headers:auth()});const localDraft=contentDirty?clone({noticesIntro:cfg.noticesIntro,notices:cfg.notices,prices:cfg.prices,formLabels:cfg.formLabels,formExtra:cfg.formExtra,formOrder:cfg.formOrder}):null;await readConfig();if(localDraft)Object.assign(cfg,localDraft);fillEditors();connected=true;conn('연결 완료 · '+$('owner').value+'/'+$('repo').value);note('설정을 불러왔습니다. 수정 후 각 저장 버튼 또는 전체 저장을 누르세요.')}catch(e){connected=false;conn('연결 실패: '+e.message)}}
 function parseEditor(id,key){try{cfg[key]=JSON.parse($(id).value)}catch(e){throw Error(id+' JSON 형식 오류: '+e.message)}}
 let writeQueue=Promise.resolve();let configSaveInProgress=false;
 async function putFile(path,content,message,encoding='utf-8'){
@@ -276,4 +317,5 @@ $('uploadImages').onclick=async()=>{
     note(prefix+e.message+(uploadedPaths.length?'\n확인할 파일: '+uploadedPaths.join(', '):''));
   }finally{$('uploadImages').disabled=false;}
 };
+cfg=JSON.parse(JSON.stringify(defaults));ensureContent();renderNotices();renderPrices();renderForm();
 </script></body></html>
