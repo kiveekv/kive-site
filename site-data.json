@@ -212,12 +212,6 @@
   ],
   "portfolio": [
     {
-      "category": "poster",
-      "title": "[마리님] 포스터",
-      "path": "./portfolio/1792600482792-0-D08A1626-F35A-4A39-9F0C-9E948FE309B3.png",
-      "createdAt": "2026-10-21T16:34:48.568Z"
-    },
-    {
       "category": "schedule",
       "title": "스케줄표 샘플2",
       "path": "./portfolio/1792124274378-0-2.png",
