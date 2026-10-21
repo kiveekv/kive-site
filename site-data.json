@@ -213,7 +213,7 @@
   "portfolio": [
     {
       "category": "poster",
-      "title": "D08A1626-F35A-4A39-9F0C-9E948FE309B3",
+      "title": "[마리님] 포스터",
       "path": "./portfolio/1792600482792-0-D08A1626-F35A-4A39-9F0C-9E948FE309B3.png",
       "createdAt": "2026-10-21T16:34:48.568Z"
     },
@@ -314,7 +314,7 @@
     },
     {
       "category": "poster",
-      "title": "IMG_1964",
+      "title": "[백시한님] 포스터",
       "path": "./portfolio/1792205175022-0-IMG_1964.png",
       "createdAt": "2026-10-17T02:46:19.791Z"
     },
@@ -325,7 +325,7 @@
     },
     {
       "category": "poster",
-      "title": "포스터",
+      "title": "[엔뮤님] 포스터",
       "path": "./portfolio/1792117544408-0-.png"
     }
   ],
