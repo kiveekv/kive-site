@@ -48,6 +48,10 @@
     "2026-10-25": {
       "status": "closed",
       "label": "마감"
+    },
+    "2026-10-24": {
+      "status": "closed",
+      "label": "마감"
     }
   },
   "prices": {
