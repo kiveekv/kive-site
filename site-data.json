@@ -212,6 +212,12 @@
   ],
   "portfolio": [
     {
+      "category": "poster",
+      "title": "IMG_1995",
+      "path": "./portfolio/1792646515494-0-IMG_1995.png",
+      "createdAt": "2026-10-22T05:22:01.454Z"
+    },
+    {
       "category": "schedule",
       "title": "스케줄표 샘플2",
       "path": "./portfolio/1792124274378-0-2.png",
