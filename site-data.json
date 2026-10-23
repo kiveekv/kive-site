@@ -44,22 +44,6 @@
     "2026-10-26": {
       "status": "off",
       "label": "휴무"
-    },
-    "2026-10-25": {
-      "status": "closed",
-      "label": "마감"
-    },
-    "2026-10-24": {
-      "status": "closed",
-      "label": "마감"
-    },
-    "2026-10-23": {
-      "status": "closed",
-      "label": "마감"
-    },
-    "2026-10-22": {
-      "status": "closed",
-      "label": "마감"
     }
   },
   "prices": {
