@@ -197,15 +197,15 @@
   "portfolio": [
     {
       "category": "poster",
-      "title": "IMG_2005",
-      "path": "./portfolio/1792815538955-0-IMG_2005.png",
-      "createdAt": "2026-10-24T04:19:03.985Z"
-    },
-    {
-      "category": "poster",
       "title": "[마리님] 재데뷔 포스터",
       "path": "./portfolio/1792646515494-0-IMG_1995.png",
       "createdAt": "2026-10-22T05:22:01.454Z"
+    },
+    {
+      "category": "poster",
+      "title": "[마리님] 이벤트 포스터",
+      "path": "./portfolio/1792815538955-0-IMG_2005.png",
+      "createdAt": "2026-10-24T04:19:03.985Z"
     },
     {
       "category": "schedule",
@@ -333,5 +333,13 @@
     "text",
     "reference",
     "extraRequest"
-  ]
+  ],
+  "portfolioSortModes": {
+    "poster": "manual",
+    "schedule": "manual",
+    "ppt": "manual",
+    "replay": "manual",
+    "cat-유튜브-채널-아트": "manual",
+    "banner": "manual"
+  }
 }
