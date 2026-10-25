@@ -196,6 +196,12 @@
   ],
   "portfolio": [
     {
+      "category": "schedule",
+      "title": "IMG_2009",
+      "path": "./portfolio/1792943995660-0-IMG_2009.png",
+      "createdAt": "2026-10-25T15:59:59.976Z"
+    },
+    {
       "category": "poster",
       "title": "[마리님] 재데뷔 포스터",
       "path": "./portfolio/1792646515494-0-IMG_1995.png",
