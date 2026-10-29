@@ -213,6 +213,12 @@
   "portfolio": [
     {
       "category": "ppt",
+      "title": "IMG_2155",
+      "path": "./portfolio/1793283824212-0-IMG_2155.png",
+      "createdAt": "2026-10-29T14:23:50.215Z"
+    },
+    {
+      "category": "ppt",
       "title": "IMG_2156",
       "path": "./portfolio/1793283814174-0-IMG_2156.png",
       "createdAt": "2026-10-29T14:23:38.929Z"
