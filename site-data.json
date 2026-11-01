@@ -231,6 +231,11 @@
       "panel": "kive-cat-cat-유튜브-채널-아트"
     },
     {
+      "id": "live-2d-쇼케이스",
+      "label": "Live 2D 쇼케이스",
+      "panel": "kive-cat-live-2d-쇼케이스"
+    },
+    {
       "id": "banner",
       "label": "치지직 배너",
       "panel": "kive-banner"
@@ -239,7 +244,7 @@
   "portfolio": [
     {
       "category": "replay",
-      "title": "IMG_2224",
+      "title": "다시보기 썸네일",
       "path": "./portfolio/1793530814000-0-IMG_2224.png",
       "createdAt": "2026-11-01T11:00:18.104Z"
     },
