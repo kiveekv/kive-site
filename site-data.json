@@ -238,6 +238,12 @@
   ],
   "portfolio": [
     {
+      "category": "replay",
+      "title": "IMG_2224",
+      "path": "./portfolio/1793530814000-0-IMG_2224.png",
+      "createdAt": "2026-11-01T11:00:18.104Z"
+    },
+    {
       "category": "ppt",
       "title": "01 표지",
       "path": "./portfolio/1793283824212-0-IMG_2155.png",
