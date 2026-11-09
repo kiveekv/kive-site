@@ -243,6 +243,12 @@
   ],
   "portfolio": [
     {
+      "category": "live-2d-쇼케이스",
+      "title": "Live2D 쇼케이스 최종 시안",
+      "path": "./portfolio/1794232518083-0-Live2D-.png",
+      "createdAt": "2026-11-09T13:55:23.451Z"
+    },
+    {
       "category": "replay",
       "title": "다시보기 썸네일",
       "path": "./portfolio/1793530814000-0-IMG_2224.png",
