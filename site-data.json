@@ -76,6 +76,14 @@
     "2026-11-22": {
       "status": "available",
       "label": "작업 가능"
+    },
+    "2026-12-01": {
+      "status": "off",
+      "label": "휴무"
+    },
+    "2026-12-11": {
+      "status": "off",
+      "label": "휴무"
     }
   },
   "prices": {
