@@ -251,6 +251,12 @@
   ],
   "portfolio": [
     {
+      "category": "poster",
+      "title": "IMG_2632",
+      "path": "./portfolio/1795353049413-0-IMG_2632.png",
+      "createdAt": "2026-11-22T13:10:55.220Z"
+    },
+    {
       "category": "live-2d-쇼케이스",
       "title": "Live2D 쇼케이스 최종 시안",
       "path": "./portfolio/1794232518083-0-Live2D-.png",
