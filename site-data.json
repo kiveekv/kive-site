@@ -219,6 +219,11 @@
       "panel": "kive-poster"
     },
     {
+      "id": "rt-포스터",
+      "label": "RT 포스터",
+      "panel": "kive-cat-rt-포스터"
+    },
+    {
       "id": "schedule",
       "label": "스케줄표",
       "panel": "kive-schedule"
@@ -250,6 +255,12 @@
     }
   ],
   "portfolio": [
+    {
+      "category": "rt-포스터",
+      "title": "IMG_2744",
+      "path": "./portfolio/1795860920913-0-IMG_2744.png",
+      "createdAt": "2026-11-28T10:15:26.324Z"
+    },
     {
       "category": "poster",
       "title": "[진사애님] 생일 홍보 포스터",
